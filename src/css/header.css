@@ -1,0 +1,32 @@
+.navbar{
+    background-color: #abc270;
+    overflow: hidden;
+    width: 100%;
+}
+.navbar ul {
+    margin-left: 82%;
+}
+.navbar li {
+    display: inline-flex;
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    float: right;
+    font-family: 'Calibri', sans-serif;
+    font-size: 18px;
+    opacity: 0.9;
+    color: #fff;
+}
+.navbar li:hover {
+    background-color: #94A762;
+    color: #E2E2E2;
+}
+.appbar {
+    background-color: #abc270;
+    box-shadow: none;
+}
+@media (max-width: 1100px) {
+    .navbar ul{
+        margin-left: 75%;
+    }
+}

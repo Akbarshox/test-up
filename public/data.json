@@ -1,0 +1,100 @@
+[
+    {
+        "id": 0,
+        "size": 1,
+        "name": "t-shirt-0",
+        "image": "https://ih1.redbubble.net/image.76633323.6535/ra,unisex_tshirt,x2200,403c32:92341a482f,front-c,267,146,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 7100
+    },
+    {
+        "id": 1,
+        "size": 2,
+        "name": "t-shirt-1",
+        "image": "https://ih1.redbubble.net/image.76633323.6535/ssrco,unisex_tshirt,womens,403c32:92341a482f,front,tall_portrait,x1000-bg,f8f8f8.u1.jpg",
+        "price": 5000
+    },
+    {
+        "id": 2,
+        "size": 3,
+        "name": "t-shirt-2",
+        "image": "https://ih0.redbubble.net/image.486914147.8800/ssrco,unisex_tshirt,womens,33281f:5b604c86ce,front,square_three_quarter,x1000-bg,f8f8f8.u1.jpg",
+        "price": 11000
+    },
+    {
+        "id": 3,
+        "size": 4,
+        "name": "t-shirt-3",
+        "image": "https://ih0.redbubble.net/image.324208366.3887/ra,unisex_tshirt,x2200,101010:01c5ca27c6,front-c,267,146,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 1570
+    },
+    {
+        "id": 4,
+        "size": 5,
+        "name": "t-shirt-4",
+        "image": "https://ih0.redbubble.net/image.477297043.9491/ssrco,unisex_tshirt,womens,e0e1dd:064437a66d,front,square_three_quarter,x1000-bg,f8f8f8.u1.jpg",
+        "price": 500
+    },
+    {
+        "id": 5,
+        "size": 2,
+        "name": "t-shirt-5",
+        "image": "https://ih0.redbubble.net/image.31241910.4569/ra,unisex_tshirt,x2200,fafafa:ca443f4786,front-c,267,146,1000,1000-bg,f8f8f8.jpg",
+        "price": 9300
+    },
+    {
+        "id": 6,
+        "size": 3,
+        "name": "t-shirt-6",
+        "image": "https://ih0.redbubble.net/image.72281552.8874/ra,unisex_tshirt,x2200,101010:01c5ca27c6,front-c,267,146,1000,1000-bg,f8f8f8.u4.jpg",
+        "price": 1000
+    },
+    {
+        "id": 7,
+        "size": 5,
+        "name": "t-shirt-7",
+        "image": "https://ih1.redbubble.net/image.578176091.2751/ra,unisex_tshirt,x2200,fafafa:ca443f4786,front-c,267,146,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 4500
+    },
+    {
+        "id": 7,
+        "size": 1,
+        "name": "t-shirt-7",
+        "image": "https://ih1.redbubble.net/image.924006353.4679/ra,unisex_tshirt,x2200,101010:01c5ca27c6,front-c,267,146,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 20000
+    },
+    {
+        "id": 8,
+        "size": 4,
+        "name": "t-shirt-8",
+        "image": "https://ih0.redbubble.net/image.924998231.8406/ra,unisex_tshirt,x2200,101010:01c5ca27c6,front-c,267,146,1000,1000-bg,f8f8f8.u7.jpg",
+        "price": 4500
+    },
+    {
+        "id": 9,
+        "size": 2,
+        "name": "t-shirt-9",
+        "image": "https://ih1.redbubble.net/image.801358661.9499/ra,vneck,x1900,fafafa:ca443f4786,front-c,160,70,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 10000
+    },    
+    {
+        "id": 10,
+        "size": 1,
+        "name": "t-shirt-10",
+        "image": "https://ih0.redbubble.net/image.801358668.9499/gptr,1400x,front,black-c,188,133,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 9999
+    },
+    {
+        "id": 11,
+        "size": 5,
+        "name": "t-shirt-11",
+        "image": "https://ih0.redbubble.net/image.825876166.0986/gptr,1400x,front,black-c,188,133,1000,1000-bg,f8f8f8.u1.jpg",
+        "price": 7102
+    },
+    {
+        "id": 12,
+        "size": 4,
+        "name": "t-shirt-12",
+        "image": "https://ih1.redbubble.net/image.483578284.5129/gptr,1400x,front,black-c,188,133,1000,1000-bg,f8f8f8.jpg",
+        "price": 8000
+    }
+]
