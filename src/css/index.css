@@ -5,3 +5,12 @@
 body {
     background-color: #F3FFD5;
 }
+.paper {
+    padding-left: 250px;
+}
+
+@media(max-width: 1000px){
+    .paper{
+        padding-left: 0;
+    }
+}

@@ -1,20 +1,23 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import {Store} from '../../Store';
 import Card from './Card';
+import Sizes from './Sizes';
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,        
     },
     paper: {
-        // padding: theme.spacing(2),
+        padding: theme.spacing(2),
         textAlign: 'center',
         alignItems: 'center',
-        margin: '40px',
-        marginBottom: '-17px'
+        marginBottom: '-17px',
+        float: 'right',
+    },
+    grid: {
+        float: 'right',
     },
 }))
 
@@ -23,10 +26,11 @@ export default function Body() {
     const data = React.useContext(Store);
     return(
         <div className={classes.root}>
-            <Grid container>
-                {data.state.data.map(e => 
-                    <Grid item md={4}>
-                        <div className={classes.paper}><Card {...e}/></div>                        
+            <Sizes />
+            <Grid container justify="center" className='paper'>
+                {data.state.data.map((e, i) => 
+                    <Grid item md={4} className={classes.grid}>
+                        <div className={classes.paper}><Card {...e} key={i} /></div>                        
                     </Grid>
                 )}
             </Grid>
