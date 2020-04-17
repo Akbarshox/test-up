@@ -4,6 +4,7 @@ import { useTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
+  },
+  button: {
+    padding: 10,
+    color: '#fff',
   },
   circle: {
     backgroundColor: "#BBBBBB",
@@ -41,7 +46,7 @@ export default function LetterAvatars() {
                 <Grid container justify="center">
                     {sizes.map((e, i) => 
                         <Grid>
-                            <Avatar className={classes.circle}>{e}</Avatar>
+                            <Avatar className={classes.circle}><Button color="primary" className={classes.button}>{e}</Button></Avatar>
                         </Grid>
                     )}
                 </Grid>
@@ -53,7 +58,7 @@ export default function LetterAvatars() {
                 <Grid container justify="center">
                     {sizes.map((e, i) => 
                         <Grid>
-                            <Avatar className={classes.circleMobile}>{e}</Avatar>
+                            <Avatar className={classes.circle}><Button color="primary" className={classes.button}>{e}</Button></Avatar>
                         </Grid>
                     )}
                 </Grid>

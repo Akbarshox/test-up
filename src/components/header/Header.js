@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,6 +12,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import TemporaryDrawer from './Drawer';
+import {Store} from '../../Store';
+import * as searchAction from '../../store/actions/search';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -91,7 +93,15 @@ export default function Header() {
     };
     var navbar = (
         'navbar'
-    )
+    );
+    const store = React.useContext(Store);
+    const { dispatch } = React.useContext(Store);
+    const [searchItem, setSearchItem] = React.useState("");
+    const handleChange = event => {
+      setSearchItem(event.target.value);
+      return dispatch ({ type: 'SEARCH', payload: event.target.value})
+    }
+    
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
       <Menu
@@ -139,12 +149,14 @@ export default function Header() {
                         <SearchIcon />
                         </div>
                         <InputBase
-                        placeholder="Search…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
+                          placeholder="Search…"
+                          classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                          }}
+                          inputProps={{ 'aria-label': 'search' }}
+                          value={searchItem}
+                          onChange={handleChange}
                         />
                     </div>
                     <div className={classes.grow} />
@@ -158,11 +170,11 @@ export default function Header() {
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
-                        aria-label="show more"
-                        aria-controls={mobileMenuId}
-                        aria-haspopup="true"
-                        onClick={handleMobileMenuOpen}
-                        color="inherit"
+                          aria-label="show more"
+                          aria-controls={mobileMenuId}
+                          aria-haspopup="true"
+                          onClick={handleMobileMenuOpen}
+                          color="inherit"
                         >
                         <MoreIcon />
                         </IconButton>

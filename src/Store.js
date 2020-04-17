@@ -4,7 +4,8 @@ import reducer from './store/reducers/reducer';
 export const Store = React.createContext();
 
 const initialState = {
-    data: []
+    data: [],
+    searchQuery: ''
 };
 
 export function StoreProvider(props) {
