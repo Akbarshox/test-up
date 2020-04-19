@@ -55,7 +55,7 @@ export default function Body() {
             return (
                 <div className={classes.root}>
                     <Sizes />
-                    <Grid container className='paper'>
+                    <Grid container className='paper' justify='center'>
                     {[1, 2, 3].map((e, i) => 
                         <Grid item md={4} className={classes.grid}>
                             <div className={classes.paper}><Skelet {...e} key={i} /></div>                        

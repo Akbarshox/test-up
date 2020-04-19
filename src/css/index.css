@@ -18,5 +18,6 @@ body {
 @media(max-width: 1000px){
     .paper{
         padding-left: 0;
+        justify-content: center;
     }
 }
