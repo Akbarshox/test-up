@@ -5,7 +5,7 @@ import { Store } from '../Store';
 export default function Fetch() {
     const { dispatch } = React.useContext(Store);
     React.useEffect(() =>  {
-        axios.get('http://localhost:3000/data.json')
+        axios.get('https://summerclothes.now.sh/data.json')
         .then((res) => {
             return dispatch({
                 type: 'FETCH_DATA',
