@@ -8,11 +8,9 @@ body {
 .paper {
     padding-left: 250px;
 }
-.skeleton li {
-    list-style-type: none;
-    position: absolute;
-    margin-left: -40px;
+.skeleton {
     margin-top: -40px;
+    margin-left: 50px;
 }
 
 @media(max-width: 1000px){

@@ -44,11 +44,13 @@ export default function LetterAvatars() {
         return (
             <div className={classes.root}>
                 <Grid container justify="center">
-                    {sizes.map((e, i) => 
-                        <Grid>
-                            <Avatar className={classes.circle}><Button color="primary" className={classes.button}>{e}</Button></Avatar>
-                        </Grid>
-                    )}
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>XS</Button></Avatar></Grid>
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>S</Button></Avatar></Grid>
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>M</Button></Avatar></Grid>
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>XL</Button></Avatar></Grid>
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>ML</Button></Avatar></Grid>
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>XL</Button></Avatar></Grid>
+                  <Grid><Avatar className={classes.circle}><Button color="primary" className={classes.button}>XXL</Button></Avatar></Grid>
                 </Grid>
             </div>
         )

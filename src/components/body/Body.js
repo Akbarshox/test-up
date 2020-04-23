@@ -5,6 +5,7 @@ import {Store} from '../../Store';
 import Card from './Card';
 import Sizes from './Sizes';
 import Skelet from './Skeleton';
+import { searchAction } from '../../store/actions/search';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,13 +33,11 @@ export default function Body() {
     
     React.useEffect(() => {
         const result = data.state.data.filter(
-          o =>
-          o.name.toLowerCase().indexOf(searchItem.toLowerCase()) >= 0,
+          i =>
+          i.name.toLowerCase().indexOf(searchItem.toLowerCase()) >= 0,
       )
           setSearchResult(result);        
-          
       }, [searchItem]);
-      
     if(searchResult.length != 0){
         return(
             <div className={classes.root}>
@@ -56,12 +55,12 @@ export default function Body() {
                 <div className={classes.root}>
                     <Sizes />
                     <Grid container className='paper' justify='center'>
-                    {[1, 2, 3].map((e, i) => 
-                        <Grid item md={4} className={classes.grid}>
-                            <div className={classes.paper}><Skelet {...e} key={i} /></div>                        
-                        </Grid>
-                    )}
-                </Grid> 
+                        {[1, 2, 3].map((e, i) => 
+                            <Grid item md={4} className={classes.grid}>
+                                <div className={classes.paper}><Skelet {...e} key={i} /></div>                        
+                            </Grid>
+                        )}
+                     </Grid> 
                 </div>
             )
     }

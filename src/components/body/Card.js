@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -14,7 +13,7 @@ const useStyles = makeStyles({
     maxWidth: 320,
   },
   button: {
-      width: '200px',
+      width: '220px',
       justifyContent: 'center',
       color: '#3E9B4C'
   }
@@ -24,24 +23,21 @@ export default function ImgMediaCard(e) {
     const classes = useStyles();
   return (
     <Card className={classes.root}>
-        <CardActionArea>
-            <CardMedia
-                component="img"
-                alt={e.size}
-                height="400"
-                image={e.image}
-                title="Contemplative Reptile"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {e.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                    across all continents except Antarctica
-                </Typography>
-            </CardContent>
-        </CardActionArea>
+        <CardMedia
+            component="img"
+            alt={e.size}
+            height="400"
+            image={e.image}
+            title="Contemplative Reptile"
+        />
+        <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+                {e.name}
+            </Typography>
+            <Typography variant="h5" color="textSecondary" component="h3">
+                {e.price} $
+            </Typography>
+        </CardContent>
         <CardActions style={{justifyContent: 'center'}}>
             <Button
                 color="default"
