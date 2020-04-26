@@ -37,7 +37,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LetterAvatars() {
    const classes = useStyles();
-   const sizes = ['XS', 'S', 'M', 'ML', 'L', 'XL', 'XXL'];
+   const sizes = [
+      {id: 1, sizeName: 'XS'}, {id: 2, sizeName: 'S'}, {id: 3, sizeName: 'M'}, {id: 4, sizeName: 'ML'},
+      {id: 5, sizeName: 'X'}, {id: 6, sizeName: 'XL'}, {id: 7, sizeName: 'XXL'}
+   ];
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.up('sm'));
    const {dispatch} = React.useContext(Store);
@@ -46,38 +49,19 @@ export default function LetterAvatars() {
    function handleClick(e) {
       return dispatch({type: 'FILTER', payload: e})
    }
+   
    if (matches === true) {
       return (
           <div className={classes.root}>
              <Grid container justify="center">
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 1}
-                           onClick={handleClick.bind(this, 1)}>XS</Button>
-                </Avatar></Grid>
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 2}
-                           onClick={handleClick.bind(this, 2)}>S</Button>
-                </Avatar></Grid>
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 3}
-                           onClick={handleClick.bind(this, 3)}>M</Button>
-                </Avatar></Grid>
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 4}
-                           onClick={handleClick.bind(this, 4)}>ML</Button>
-                </Avatar></Grid>
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 5}
-                           onClick={handleClick.bind(this, 5)}>L</Button>
-                </Avatar></Grid>
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 6}
-                           onClick={handleClick.bind(this, 6)}>XL</Button>
-                </Avatar></Grid>
-                <Grid><Avatar className={classes.circle}>
-                   <Button color="primary" className={classes.button} active={filterBy === 7}
-                           onClick={handleClick.bind(this, 7)}>XXL</Button>
-                </Avatar></Grid>
+                {sizes.map((e, i) =>
+                    <Grid>
+                       <Avatar className={classes.circle}>
+                          <Button color="primary" active={filterBy === e.id} onClick={handleClick.bind(this, e.id)}
+                                  className={classes.button}>{e.sizeName}</Button>
+                       </Avatar>
+                    </Grid>
+                )}
              </Grid>
           </div>
       )
@@ -87,8 +71,10 @@ export default function LetterAvatars() {
              <Grid container justify="center">
                 {sizes.map((e, i) =>
                     <Grid>
-                       <Avatar className={classes.circle}><Button color="primary"
-                                                                  className={classes.button}>{e}</Button></Avatar>
+                       <Avatar className={classes.circle}>
+                          <Button color="primary" active={filterBy === e.id} onClick={handleClick.bind(this, e.id)}
+                                  className={classes.button}>{e.sizeName}</Button>
+                       </Avatar>
                     </Grid>
                 )}
              </Grid>
