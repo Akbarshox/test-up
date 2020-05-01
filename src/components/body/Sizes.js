@@ -38,26 +38,29 @@ const useStyles = makeStyles((theme) => ({
 export default function LetterAvatars() {
    const classes = useStyles();
    const sizes = [
-      {id: 1, sizeName: 'XS'}, {id: 2, sizeName: 'S'}, {id: 3, sizeName: 'M'}, {id: 4, sizeName: 'ML'},
-      {id: 5, sizeName: 'X'}, {id: 6, sizeName: 'XL'}, {id: 7, sizeName: 'XXL'}
+      {id: 0, sizeName: 'All'}, {id: 1, sizeName: 'S'}, {id: 2, sizeName: 'M'}, {id: 3, sizeName: 'ML'},
+      {id: 4, sizeName: 'X'}, {id: 5, sizeName: 'XL'}, {id: 6, sizeName: 'XXL'}
    ];
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.up('sm'));
    const {dispatch} = React.useContext(Store);
-   const filterBy = React.useContext(Store);
+   const [color, setColor] = React.useState(0);
    
    function handleClick(e) {
-      return dispatch({type: 'FILTER', payload: e})
+      setColor(e);
+      return dispatch({type: 'FILTER', payload: e === 0 ? '' : e});
    }
    
+   console.log(color);
    if (matches === true) {
       return (
           <div className={classes.root}>
              <Grid container justify="center">
                 {sizes.map((e, i) =>
-                    <Grid>
+                    <Grid key={i}>
                        <Avatar className={classes.circle}>
-                          <Button color="primary" active={filterBy === e.id} onClick={handleClick.bind(this, e.id)}
+                          <Button color="primary"
+                                  onClick={handleClick.bind(this, e.id)} style={e.id === color ? {backgroundColor: '#96C348'} : null}
                                   className={classes.button}>{e.sizeName}</Button>
                        </Avatar>
                     </Grid>
@@ -70,9 +73,10 @@ export default function LetterAvatars() {
           <div className={classes.rootMobile}>
              <Grid container justify="center">
                 {sizes.map((e, i) =>
-                    <Grid>
+                    <Grid key={i}>
                        <Avatar className={classes.circle}>
-                          <Button color="primary" active={filterBy === e.id} onClick={handleClick.bind(this, e.id)}
+                          <Button color="primary"
+                                  onClick={handleClick.bind(this, e.id)}
                                   className={classes.button}>{e.sizeName}</Button>
                        </Avatar>
                     </Grid>

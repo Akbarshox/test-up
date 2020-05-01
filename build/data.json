@@ -1,7 +1,7 @@
 [
     {
         "id": 0,
-        "size": 1,
+        "size": 4,
         "name": "Crew neck t-shirt",
         "image": "https://ih1.redbubble.net/image.76633323.6535/ra,unisex_tshirt,x2200,403c32:92341a482f,front-c,267,146,1000,1000-bg,f8f8f8.u1.jpg",
         "price": 7100
@@ -78,7 +78,7 @@
     },    
     {
         "id": 10,
-        "size": 1,
+        "size": 5 ,
         "name": "Express Yourself",
         "image": "https://ih0.redbubble.net/image.801358668.9499/gptr,1400x,front,black-c,188,133,1000,1000-bg,f8f8f8.u1.jpg",
         "price": 9999

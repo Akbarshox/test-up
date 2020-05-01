@@ -38,9 +38,9 @@ export default function Body() {
                   i.name.toLowerCase().indexOf(searchItem.toLowerCase()) >= 0,
           );
       const sortBy = (data, filterBy) => {
-         if(filterBy){
-            return filter(data, { 'size': filterBy });
-         }else{
+         if (filterBy) {
+            return filter(data, {'size': filterBy});
+         } else {
             return data;
          }
       };
@@ -56,8 +56,8 @@ export default function Body() {
              <Sizes/>
              <Grid container className='paper'>
                 {searchResult.map((e, i) =>
-                    <Grid item md={4} className={classes.grid}>
-                       <div className={classes.paper}><Card {...e} key={i}/></div>
+                    <Grid item md={4} className={classes.grid} key={i}>
+                       <div className={classes.paper}><Card {...e} /></div>
                     </Grid>
                 )}
              </Grid>
@@ -69,8 +69,8 @@ export default function Body() {
              <Sizes/>
              <Grid container className='paper' justify='center'>
                 {[1, 2, 3].map((e, i) =>
-                    <Grid item md={4} className={classes.grid}>
-                       <div className={classes.paper}><Skelet {...e} key={i}/></div>
+                    <Grid item md={4} className={classes.grid} key={i}>
+                       <div className={classes.paper}><Skelet {...e} /></div>
                     </Grid>
                 )}
              </Grid>
