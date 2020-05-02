@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import {Store} from '../../Store';
 
 const useStyles = makeStyles({
    root: {
@@ -21,6 +22,12 @@ const useStyles = makeStyles({
 
 export default function ImgMediaCard(e) {
    const classes = useStyles();
+   const {dispatch} = useContext(Store);
+   
+   function handleClick(e) {
+      return dispatch ({type: 'ADD_CART', payload: e})
+   }
+   
    return (
        <Card className={classes.root}>
           <CardMedia
@@ -43,6 +50,7 @@ export default function ImgMediaCard(e) {
                  color="default"
                  className={classes.button}
                  startIcon={<ShoppingCartIcon/>}
+                 onClick={handleClick.bind(this, e)}
              >
                 Add to Cart
              </Button>
