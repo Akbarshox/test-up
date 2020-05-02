@@ -60,7 +60,8 @@ export default function LetterAvatars() {
                     <Grid key={i}>
                        <Avatar className={classes.circle}>
                           <Button color="primary"
-                                  onClick={handleClick.bind(this, e.id)} style={e.id === color ? {backgroundColor: '#96C348'} : null}
+                                  onClick={handleClick.bind(this, e.id)}
+                                  style={e.id === color ? {backgroundColor: '#96C348'} : null}
                                   className={classes.button}>{e.sizeName}</Button>
                        </Avatar>
                     </Grid>
@@ -77,6 +78,7 @@ export default function LetterAvatars() {
                        <Avatar className={classes.circle}>
                           <Button color="primary"
                                   onClick={handleClick.bind(this, e.id)}
+                                  style={e.id === color ? {backgroundColor: '#96C348'} : null}
                                   className={classes.button}>{e.sizeName}</Button>
                        </Avatar>
                     </Grid>
