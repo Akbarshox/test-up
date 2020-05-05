@@ -9,11 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import {withStyles} from '@material-ui/core/styles';
-import Badge from '@material-ui/core/Badge';
 import TemporaryDrawer from './Drawer';
+import CartMenu from './CartMenu';
 import {Store} from '../../Store';
 
 const useStyles = makeStyles(theme => ({
@@ -78,15 +76,7 @@ const useStyles = makeStyles(theme => ({
       },
    },
 }));
-const StyledBadge = withStyles((theme) => ({
-   badge: {
-      right: -2,
-      top: 5,
-      border: `1.5px solid ${theme.palette.background.paper}`,
-      padding: '0 1px',
-      background: `#9e9e9e`
-   },
-}))(Badge);
+
 
 export default function Header() {
    const classes = useStyles();
@@ -104,14 +94,12 @@ export default function Header() {
    var navbar = (
        'navbar'
    );
-   const store = React.useContext(Store);
    const {dispatch} = React.useContext(Store);
    const [searchItem, setSearchItem] = React.useState("");
    const handleChange = event => {
       setSearchItem(event.target.value);
       return dispatch({type: 'SEARCH', payload: event.target.value})
-   }
-   
+   };
    const mobileMenuId = 'primary-search-account-menu-mobile';
    const renderMobileMenu = (
        <Menu
@@ -130,11 +118,7 @@ export default function Header() {
              <p>Favourite</p>
           </MenuItem>
           <MenuItem>
-             <IconButton aria-label="show 11 new notifications" color="inherit">
-                <StyledBadge badgeContent={store.state.addToCart.length} color="primary">
-                   <ShoppingCartOutlinedIcon/>
-                </StyledBadge>
-             </IconButton>
+             <CartMenu />
              <p>My cart</p>
           </MenuItem>
        </Menu>
@@ -176,11 +160,7 @@ export default function Header() {
                       <IconButton aria-label="show 4 new mails" color="inherit">
                          <FavoriteBorderIcon/>
                       </IconButton>
-                      <IconButton aria-label="show 17 new notifications" color="inherit">
-                         <StyledBadge badgeContent={store.state.addToCart.length} color="primary">
-                            <ShoppingCartOutlinedIcon/>
-                         </StyledBadge>
-                      </IconButton>
+                      <CartMenu />
                    </div>
                    <div className={classes.sectionMobile}>
                       <IconButton

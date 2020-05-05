@@ -51,7 +51,6 @@ export default function LetterAvatars() {
       return dispatch({type: 'FILTER', payload: e === 0 ? '' : e});
    }
    
-   console.log(color);
    if (matches === true) {
       return (
           <div className={classes.root}>

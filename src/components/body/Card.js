@@ -25,7 +25,7 @@ export default function ImgMediaCard(e) {
    const {dispatch} = useContext(Store);
    
    function handleClick(e) {
-      return dispatch ({type: 'ADD_CART', payload: e})
+      return dispatch({type: 'ADD_CART', payload: e})
    }
    
    return (
