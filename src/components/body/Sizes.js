@@ -44,11 +44,11 @@ export default function LetterAvatars() {
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.up('sm'));
    const {dispatch} = React.useContext(Store);
-   const [color, setColor] = React.useState(0);
+   const [color, setColor] = React.useState('All');
    
    function handleClick(e) {
       setColor(e);
-      return dispatch({type: 'FILTER', payload: e === 0 ? '' : e});
+      return dispatch({type: 'FILTER', payload: e === 'All' ? '' : e});
    }
    
    if (matches === true) {
@@ -59,8 +59,8 @@ export default function LetterAvatars() {
                     <Grid key={i}>
                        <Avatar className={classes.circle}>
                           <Button color="primary"
-                                  onClick={handleClick.bind(this, e.id)}
-                                  style={e.id === color ? {backgroundColor: '#96C348'} : null}
+                                  onClick={handleClick.bind(this, e.sizeName)}
+                                  style={e.sizeName === color ? {backgroundColor: '#96C348'} : null}
                                   className={classes.button}>{e.sizeName}</Button>
                        </Avatar>
                     </Grid>
@@ -76,8 +76,8 @@ export default function LetterAvatars() {
                     <Grid key={i}>
                        <Avatar className={classes.circle}>
                           <Button color="primary"
-                                  onClick={handleClick.bind(this, e.id)}
-                                  style={e.id === color ? {backgroundColor: '#96C348'} : null}
+                                  onClick={handleClick.bind(this, e.sizeName)}
+                                  style={e.sizeName === color ? {backgroundColor: '#96C348'} : null}
                                   className={classes.button}>{e.sizeName}</Button>
                        </Avatar>
                     </Grid>

@@ -42,17 +42,6 @@ const StyledMenu = withStyles({
     />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
-   root: {
-      '&:focus': {
-         backgroundColor: theme.palette.primary.main,
-         '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-            color: theme.palette.common.white,
-         },
-      },
-   },
-}))(MenuItem);
-
 export default function CustomizedMenus() {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const store = React.useContext(Store);
@@ -78,24 +67,14 @@ export default function CustomizedMenus() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
           >
-             <StyledMenuItem>
-                <ListItemIcon>
-                   <SendIcon fontSize="small"/>
-                </ListItemIcon>
-                <ListItemText primary="Sent mail"/>
-             </StyledMenuItem>
-             <StyledMenuItem>
-                <ListItemIcon>
-                   <DraftsIcon fontSize="small"/>
-                </ListItemIcon>
-                <ListItemText primary="Drafts"/>
-             </StyledMenuItem>
-             <StyledMenuItem>
-                <ListItemIcon>
-                   <InboxIcon fontSize="small"/>
-                </ListItemIcon>
-                <ListItemText primary="Inbox"/>
-             </StyledMenuItem>
+             {store.state.addToCart.map((e, i) =>
+                 <MenuItem>
+                    <ListItemIcon>
+                       <SendIcon fontSize="small"/>
+                    </ListItemIcon>
+                    <div>{e.name}</div>
+                 </MenuItem>
+             )}
           </StyledMenu>
        </div>
    );
