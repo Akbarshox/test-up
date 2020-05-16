@@ -4,13 +4,14 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Badge from '@material-ui/core/Badge';
+import uniqBy from 'lodash/uniqBy';
 import {Store} from '../../Store';
+import Tshirt from '../../img/t-shirt.svg';
+import DeleteIcon from '../../img/delete.svg';
+
 
 const StyledBadge = withStyles((theme) => ({
    badge: {
@@ -25,6 +26,7 @@ const StyledBadge = withStyles((theme) => ({
 const StyledMenu = withStyles({
    paper: {
       border: '1px solid #d3d4d5',
+      width: '320px'
    },
 })((props) => (
     <Menu
@@ -52,6 +54,7 @@ export default function CustomizedMenus() {
    const handleClose = () => {
       setAnchorEl(null);
    };
+   const cart = uniqBy(store.state.addToCart, "id");
    
    return (
        <div>
@@ -67,12 +70,16 @@ export default function CustomizedMenus() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
           >
-             {store.state.addToCart.map((e, i) =>
-                 <MenuItem>
+             {cart.map((e, i) =>
+                 <MenuItem disableTouchRipple={true} key={i}>
                     <ListItemIcon>
-                       <SendIcon fontSize="small"/>
+                       <img src={Tshirt} alt="t-shirt"/>
                     </ListItemIcon>
                     <div>{e.name}</div>
+                    <div className="price"> - {e.price}$</div>
+                    <div className="btn-delete">
+                       <Button><img src={DeleteIcon} style={{width: '35px'}} alt="delete"/></Button>
+                    </div>
                  </MenuItem>
              )}
           </StyledMenu>

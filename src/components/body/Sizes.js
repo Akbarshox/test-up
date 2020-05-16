@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
 export default function LetterAvatars() {
    const classes = useStyles();
    const sizes = [
-      {id: 0, sizeName: 'All'}, {id: 1, sizeName: 'S'}, {id: 2, sizeName: 'M'}, {id: 3, sizeName: 'ML'},
-      {id: 4, sizeName: 'X'}, {id: 5, sizeName: 'XL'}, {id: 6, sizeName: 'XXL'}
+      {sizeName: 'All'}, {sizeName: 'S'}, {sizeName: 'M'}, {sizeName: 'ML'},
+      {sizeName: 'X'}, {sizeName: 'XL'}, {sizeName: 'XXL'}
    ];
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.up('sm'));
