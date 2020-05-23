@@ -8,8 +8,8 @@ const initialState = {
    data: [],
    addToCart: [],
    searchQuery: '',
-   filterBy: ''
-   
+   filterBy: '',
+   id: []
 };
 
 export function StoreProvider(props) {

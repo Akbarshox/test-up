@@ -23,11 +23,11 @@ const useStyles = makeStyles({
 export default function ImgMediaCard(e) {
    const classes = useStyles();
    const {dispatch} = useContext(Store);
-   
+   const store = useContext(Store);
    function handleClick(e) {
-      return dispatch({type: 'ADD_CART', payload: e})
+      return dispatch({type: 'ADD_CART', payload: e}), dispatch({type: 'ID', payload: e.id});
    }
-   
+   const amount =  store.state.addToCart.reduce((count, book) => count + (book.id === e.id ? 1 : 0), 0);
    return (
        <Card className={classes.root}>
           <CardMedia
@@ -52,7 +52,7 @@ export default function ImgMediaCard(e) {
                  startIcon={<ShoppingCartIcon/>}
                  onClick={handleClick.bind(this, e)}
              >
-                Add to Cart
+                Add to Cart {amount > 0 && `(${amount})`}
              </Button>
           </CardActions>
        </Card>
