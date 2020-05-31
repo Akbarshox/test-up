@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,6 +13,7 @@ import {Store} from '../../Store';
 import Tshirt from '../../img/t-shirt.svg';
 import DeleteIcon from '../../img/delete.svg';
 import dribble from '../../img/dribble.png';
+import approve from '../../img/approve.svg';
 
 const StyledBadge = withStyles((theme) => ({
    badge: {
@@ -24,11 +25,25 @@ const StyledBadge = withStyles((theme) => ({
    },
 }))(Badge);
 
+const useStyles = makeStyles({
+   button: {
+      justifyContent: 'center',
+      width: '220px',
+      color: '#3E9B4C',
+      marginLeft: '52.5px'
+   }
+});
+
 const StyledMenu = withStyles({
    paper: {
       border: '1px solid #d3d4d5',
       width: '325px'
    },
+   button: {
+      width: '220px',
+      justifyContent: 'center',
+      color: '#3E9B4C'
+   }
 })((props) => (
     <Menu
         elevation={0}
@@ -49,6 +64,7 @@ export default function CustomizedMenus() {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const store = React.useContext(Store);
    const {dispatch} = React.useContext(Store);
+   const classes = useStyles();
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
    };
@@ -101,6 +117,14 @@ export default function CustomizedMenus() {
                         </div>
                      </MenuItem>
                  )}
+                 <Button
+                     color="default"
+                     className={classes.button}
+                     startIcon={<img src={approve} alt="approve" width={25} />}
+                     // onClick={handleClick.bind(this, e)}
+                 >
+                    Approve
+                 </Button>
               </StyledMenu>
               :
               <Menu

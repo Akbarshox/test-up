@@ -18,6 +18,7 @@ import {Store} from '../../Store';
 import Tshirt from '../../img/t-shirt.svg';
 import DeleteIcon from '../../img/delete.svg';
 import Button from "@material-ui/core/Button";
+import approve from "../../img/approve.svg";
 
 function Alert(props) {
    return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -30,6 +31,12 @@ const useStyles = makeStyles({
    fullList: {
       width: 'auto',
    },
+   button: {
+      justifyContent: 'center',
+      width: '220px',
+      color: '#3E9B4C',
+      marginLeft: `${(window.innerWidth - 220)/2}px`
+   }
 });
 const StyledBadge = withStyles((theme) => ({
    badge: {
@@ -82,6 +89,14 @@ export default function CartMobile() {
                            </ListItemIcon>
                         </ListItem>
                     ))}
+                    <Button
+                        color="default"
+                        className={classes.button}
+                        startIcon={<img src={approve} alt="approve" width={25} />}
+                        // onClick={handleClick.bind(this, e)}
+                    >
+                       Approve
+                    </Button>
                  </List>
               </div>
               : <Snackbar open={true}>
