@@ -72,11 +72,11 @@ export default function CartMobile() {
               >
                  <List>
                     {cart.map((e, i) => (
-                        <ListItem button key={i}>
+                        <ListItem button key={i} disableTouchRipple={true}>
                            <ListItemIcon><img src={Tshirt} alt="t-shirt"/></ListItemIcon>
                            <ListItemText primary={e.name}/>
                            <ListItemText className="price-mobile" primary={' - ' + e.price + '$'}/>
-                           <ListItemIcon className="btn-delete">
+                           <ListItemIcon className="btn-delete" disableTouchRipple={false}>
                               <Button onClick={handleDelete.bind(this, e)}><img src={DeleteIcon} style={{width: '35px'}}
                                                                                 alt="delete"/></Button>
                            </ListItemIcon>
