@@ -10,9 +10,10 @@ import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import {Store} from '../../Store';
 import TemporaryDrawer from './Drawer';
 import CartMenu from './CartMenu';
-import {Store} from '../../Store';
+import CartMobile from "./CartMobile";
 
 const useStyles = makeStyles(theme => ({
    grow: {
@@ -117,10 +118,7 @@ export default function Header() {
              </IconButton>
              <p>Favourite</p>
           </MenuItem>
-          <MenuItem>
-             <CartMenu />
-             <p>My cart</p>
-          </MenuItem>
+          <CartMobile/>
        </Menu>
    );
    return (
@@ -160,7 +158,7 @@ export default function Header() {
                       <IconButton aria-label="show 4 new mails" color="inherit">
                          <FavoriteBorderIcon/>
                       </IconButton>
-                      <CartMenu />
+                      <CartMenu/>
                    </div>
                    <div className={classes.sectionMobile}>
                       <IconButton

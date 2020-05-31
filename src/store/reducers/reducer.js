@@ -1,5 +1,3 @@
-import isMatch from 'lodash/isMatch';
-
 export default function reducer(state, action) {
    switch (action.type) {
       case 'FETCH_DATA':

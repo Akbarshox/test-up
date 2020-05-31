@@ -56,7 +56,7 @@ export default function CustomizedMenus() {
       setAnchorEl(null);
    };
    const cart = sortBy(uniqBy(store.state.addToCart, "id"), 'id', 'asc');
-   console.log(cart);
+   
    function handleDelete(e) {
       return dispatch({type: 'DELETE', payload: e});
    }
