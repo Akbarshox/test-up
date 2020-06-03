@@ -86,14 +86,19 @@ function SimpleDialog(props) {
                    <ListItemAvatar>
                       <img src={email} alt="email"/>
                    </ListItemAvatar>
-                   <TextField id="standard-basic" label="Email" autoComplete='off' inputProps={{style: inputStyle}}/>
+                   <FormControl className={clsx(classes.margin, classes.textField)}>
+                      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>email</InputLabel>
+                      <Input
+                          inputProps={{style: inputStyle}}
+                      />
+                   </FormControl>
                 </ListItem>
                 <ListItem autoFocus>
                    <ListItemAvatar>
                       <img src={password} alt="password" style={{width: '35px'}}/>
                    </ListItemAvatar>
                    <FormControl className={clsx(classes.margin, classes.textField)}>
-                      <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
                           id="standard-adornment-password"
                           type={values.showPassword ? 'text' : 'password'}
