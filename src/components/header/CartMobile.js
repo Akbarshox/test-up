@@ -14,6 +14,7 @@ import sortBy from 'lodash/sortBy';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { Divider } from '@material-ui/core';
 import {Store} from '../../Store';
 import Tshirt from '../../img/t-shirt.svg';
 import DeleteIcon from '../../img/delete.svg';
@@ -89,6 +90,7 @@ export default function CartMobile() {
                            </ListItemIcon>
                         </ListItem>
                     ))}
+                    <Divider light />
                     <Button
                         color="default"
                         className={classes.button}

@@ -10,6 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import SignIn from './auth/SignIn';
 import {Store} from '../../Store';
 import TemporaryDrawer from './Drawer';
 import CartMenu from './CartMenu';
@@ -125,8 +126,8 @@ export default function Header() {
        <div>
           <div className={`${navbar} ${classes.sectionDesktop}`}>
              <ul>
-                <li>Log in</li>
-                <li>Sign up</li>
+                <li><button className="btn-auth">Sign up</button></li>
+                <li><SignIn/></li>
              </ul>
           </div>
           <div className={classes.grow}>

@@ -120,8 +120,7 @@ export default function CustomizedMenus() {
                  <Button
                      color="default"
                      className={classes.button}
-                     startIcon={<img src={approve} alt="approve" width={25} />}
-                     // onClick={handleClick.bind(this, e)}
+                     startIcon={<img src={approve} alt="approve" width={25}/>}
                  >
                     Approve
                  </Button>
