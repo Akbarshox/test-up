@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import SignIn from './auth/SignIn';
+import SignUp from './auth/SignUp';
 import {Store} from '../../Store';
 import TemporaryDrawer from './Drawer';
 import CartMenu from './CartMenu';
@@ -126,7 +127,7 @@ export default function Header() {
        <div>
           <div className={`${navbar} ${classes.sectionDesktop}`}>
              <ul>
-                <li><button className="btn-auth">Sign up</button></li>
+                <li><SignUp /></li>
                 <li><SignIn/></li>
              </ul>
           </div>

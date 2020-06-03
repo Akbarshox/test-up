@@ -14,5 +14,12 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+export const signInWithGoogle = () => {
+   const provider = new firebase.auth.GoogleAuthProvider();
+   firebase.auth().signInWithPopup(provider)
+       .then(result => console.log('SUCCESS', result))
+       .catch(error => console.log('ERROR', error));
+};

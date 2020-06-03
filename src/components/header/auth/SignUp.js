@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,13 +16,13 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
-import {signInWithGoogle} from '../../../firebase';
+import Button from "@material-ui/core/Button";
 import emailImg from '../../../img/email.svg';
 import passwordImg from '../../../img/password.svg';
-import google from '../../../img/google.svg';
-import facebook from '../../../img/facebook.svg';
+import googleImg from '../../../img/google.svg';
+import facebookImg from '../../../img/facebook.svg';
+import nameImg from '../../../img/name.svg';
 import history from '../../../history';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +59,10 @@ function SimpleDialog(props) {
       showPassword: false,
    });
    
+   const handleChange = (prop) => (event) => {
+      setValues({...values, [prop]: event.target.value});
+   };
+   
    const handleClickShowPassword = () => {
       setValues({...values, showPassword: !values.showPassword});
    };
@@ -73,33 +77,48 @@ function SimpleDialog(props) {
    };
    const inputStyle = {WebkitBoxShadow: "0 0 0 1000px white inset"};
    
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [displayName, setDisplayName] = useState("");
    const [error, setError] = useState(null);
-   const signInWithEmailAndPasswordHandler =
-       (event, email, password) => {
-          event.preventDefault();
-       };
-   
-   const onChangeHandler = (event) => {
-      const {name, value} = event.currentTarget;
-      
-      if(name === 'userEmail') {
-         setEmail(value);
-      }
-      else if(name === 'userPassword'){
-         setPassword(value);
-      }
+   const createUserWithEmailAndPasswordHandler = (event, email, password) => {
+      event.preventDefault();
+      setEmail("");
+      setPassword("");
+      setDisplayName("");
    };
-   const signInHandler = (e) => {
-     e.preventDefault(signInWithGoogle());
+   const onChangeHandler = event => {
+      const { name, value } = event.currentTarget;
+      if (name === "userEmail") {
+         setEmail(value);
+      } else if (name === "userPassword") {
+         setPassword(value);
+      } else if (name === "displayName") {
+         setDisplayName(value);
+      }
    };
    
    return (
        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-          <DialogTitle id="simple-dialog-title">Sign In</DialogTitle>
+          <DialogTitle id="simple-dialog-title">Sign Up</DialogTitle>
           <List>
              <form className={classes.root} noValidate autoComplete="off">
+                <ListItem autoFocus>
+                   <ListItemAvatar>
+                      <img src={nameImg} alt="name" style={{width: '35px'}}/>
+                   </ListItemAvatar>
+                   <FormControl className={clsx(classes.margin, classes.textField)}>
+                      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>name</InputLabel>
+                      <Input
+                          type="text"
+                          name="displayName"
+                          value={displayName}
+                          id="displayName"
+                          onChange={event => onChangeHandler(event)}
+                          inputProps={{style: inputStyle}}
+                      />
+                   </FormControl>
+                </ListItem>
                 <ListItem autoFocus>
                    <ListItemAvatar>
                       <img src={emailImg} alt="email"/>
@@ -108,10 +127,11 @@ function SimpleDialog(props) {
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>email</InputLabel>
                       <Input
                           inputProps={{style: inputStyle}}
-                          value = {email}
-                          id="userEmail"
+                          type="email"
                           name="userEmail"
-                          onChange = {(event) => onChangeHandler(event)}
+                          value={email}
+                          id="userEmail"
+                          onChange={event => onChangeHandler(event)}
                       />
                    </FormControl>
                 </ListItem>
@@ -122,12 +142,14 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
-                          value={password}
-                          id="userPassword"
-                          onChange = {(event) => onChangeHandler(event)}
-                          type={values.showPassword ? 'text' : 'password'}
-                          style={{width: '200px'}}
+                          type="password"
+                          className="mt-1 mb-3 p-1 w-full"
                           name="userPassword"
+                          value={password}
+                          placeholder="Your Password"
+                          id="userPassword"
+                          onChange={event => onChangeHandler(event)}
+                          style={{width: '200px'}}
                           autoComplete='off'
                           inputProps={{style: inputStyle}}
                           endAdornment={
@@ -148,19 +170,20 @@ function SimpleDialog(props) {
              <Button
                  color="default"
                  className={classes.button}
-                 onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}
+                 onClick={event => {
+                    createUserWithEmailAndPasswordHandler(event, email, password);
+                 }}
              >
-                Sign in
+                Sign up
              </Button>
              <div className={classes.root}>{"or with"}</div>
-             <form className="sign-in-list">
+             <div className="sign-in-list">
                 <ul>
                    <li>
                       <Button
                           color="default"
                           className={classes.with}
-                          startIcon={<img src={google} alt="google" width={25}/>}
-                          onClick={(e) => signInHandler(e)}
+                          startIcon={<img src={googleImg} alt="google" width={25}/>}
                       >
                          Google
                       </Button>
@@ -169,13 +192,13 @@ function SimpleDialog(props) {
                       <Button
                           color="default"
                           className={classes.with}
-                          startIcon={<img src={facebook} alt="facebook" width={25}/>}
+                          startIcon={<img src={facebookImg} alt="facebook" width={25}/>}
                       >
                          Facebook
                       </Button>
                    </li>
                 </ul>
-             </form>
+             </div>
           </List>
        </Dialog>
    );
@@ -201,7 +224,7 @@ export default function SimpleDialogDemo() {
    
    return (
        <div>
-          <Link to="/signin" onClick={handleClickOpen}><MenuItem className="btn-auth">Sign in</MenuItem></Link>
+          <Link to="/signup" onClick={handleClickOpen}><MenuItem className="btn-auth">Sign up</MenuItem></Link>
           <SimpleDialog open={open} onClose={handleClose}/>
        </div>
    );
