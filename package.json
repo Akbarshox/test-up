@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "sw-precache": "^5.2.1",
     "use-reducer-logger": "^1.0.1"
   }
 }
