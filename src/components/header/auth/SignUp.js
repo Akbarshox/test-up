@@ -25,7 +25,6 @@ import facebookImg from '../../../img/facebook.svg';
 import nameImg from '../../../img/name.svg';
 import history from '../../../history';
 import {useAuth} from "../../../firebase";
-import firebase from "firebase";
 
 const useStyles = makeStyles((theme) => ({
    avatar: {
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       color: '#3E9B4C',
       border: '1px solid #3E9B4C',
-      marginLeft: '40px',
       marginTop: '15px'
    },
    root: {
@@ -61,10 +59,6 @@ function SimpleDialog(props) {
       showPassword: false,
    });
    
-   const handleChange = (prop) => (event) => {
-      setValues({...values, [prop]: event.target.value});
-   };
-   
    const handleClickShowPassword = () => {
       setValues({...values, showPassword: !values.showPassword});
    };
@@ -80,27 +74,16 @@ function SimpleDialog(props) {
    const inputStyle = {WebkitBoxShadow: "0 0 0 1000px white inset"};
    const auth = useAuth();
    
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
-   const [name, setName] = useState("");
    const [error, setError] = useState(null);
    
    const [inputs, setInputs] = useState({});
    const handleInputChange = (event) => {
       event.persist();
       setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
-      console.log(inputs)
    };
    const handleSubmit = (event) => {
       event.preventDefault();
-      firebase.auth()
-          .createUserWithEmailAndPassword('akbarshoxiciic@bk.ru', '547778555585')
-          .then(response => {
-             alert(response);
-             return response.user;
-          });
-      
-      console.log(inputs)
+      auth.signup(inputs.name, inputs.email, inputs.password);
    };
    
    return (
@@ -108,22 +91,22 @@ function SimpleDialog(props) {
           <DialogTitle id="simple-dialog-title">Sign Up</DialogTitle>
           <List>
              <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                {/*<ListItem autoFocus>*/}
-                {/*   <ListItemAvatar>*/}
-                {/*      <img src={nameImg} alt="name" style={{width: '35px'}}/>*/}
-                {/*   </ListItemAvatar>*/}
-                {/*   <FormControl className={clsx(classes.margin, classes.textField)}>*/}
-                {/*      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>name</InputLabel>*/}
-                {/*      <Input*/}
-                {/*          type="text"*/}
-                {/*          name="displayName"*/}
-                {/*          value={name}*/}
-                {/*          onChange={e => setName(e.target.value)}*/}
-                {/*          id="displayName"*/}
-                {/*          inputProps={{style: inputStyle}}*/}
-                {/*      />*/}
-                {/*   </FormControl>*/}
-                {/*</ListItem>*/}
+                <ListItem autoFocus>
+                   <ListItemAvatar>
+                      <img src={nameImg} alt="name" style={{width: '35px'}}/>
+                   </ListItemAvatar>
+                   <FormControl className={clsx(classes.margin, classes.textField)}>
+                      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>name</InputLabel>
+                      <Input
+                          type="text"
+                          name="name"
+                          value={inputs.name}
+                          onChange={handleInputChange}
+                          id="displayName"
+                          inputProps={{style: inputStyle}}
+                      />
+                   </FormControl>
+                </ListItem>
                 <ListItem autoFocus>
                    <ListItemAvatar>
                       <img src={emailImg} alt="email"/>
@@ -147,7 +130,7 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
-                          type="password"
+                          type={values.showPassword ? 'text' : 'password'}
                           className="mt-1 mb-3 p-1 w-full"
                           name="password"
                           value={inputs.password}

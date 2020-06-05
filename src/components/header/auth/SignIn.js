@@ -18,7 +18,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
-import {signInWithGoogle} from '../../../firebase';
 import emailImg from '../../../img/email.svg';
 import passwordImg from '../../../img/password.svg';
 import google from '../../../img/google.svg';
@@ -36,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       color: '#3E9B4C',
       border: '1px solid #3E9B4C',
-      marginLeft: '40px',
       marginTop: '15px'
    },
    root: {
@@ -69,20 +67,27 @@ function SimpleDialog(props) {
    };
    const {onClose, selectedValue, open} = props;
    
+   const handleInputChange = (event) => {
+      event.persist();
+      setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+   };
+   
    const handleClose = () => {
       onClose(selectedValue);
    };
    const inputStyle = {WebkitBoxShadow: "0 0 0 1000px white inset"};
    const auth = useAuth();
    
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+   const [inputs, setInputs] = useState({});
    const [error, setError] = useState(null);
-   const signInHandler = (e) => {
-      e.preventDefault(signInWithGoogle());
+   const signInGoogle = (e) => {
+      e.preventDefault();
+      auth.signInWithGoogle();
    };
    const handleSubmit = (e) => {
-      e.preventDefault(auth.signin());
+      e.preventDefault();
+      console.log(inputs);
+      auth.signin(inputs.email, inputs.password);
    };
    
    return (
@@ -98,10 +103,10 @@ function SimpleDialog(props) {
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>email</InputLabel>
                       <Input
                           inputProps={{style: inputStyle}}
-                          value = {email}
+                          value = {inputs.email}
                           id="userEmail"
-                          name="userEmail"
-                          onChange = {e => setEmail(e.target.value)}
+                          name="email"
+                          onChange = {handleInputChange}
                       />
                    </FormControl>
                 </ListItem>
@@ -112,12 +117,12 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
-                          value={password}
-                          onChange={e => setPassword(e.target.value)}
+                          value={inputs.password}
+                          onChange={handleInputChange}
                           id="userPassword"
                           type={values.showPassword ? 'text' : 'password'}
                           style={{width: '200px'}}
-                          name="userPassword"
+                          name="password"
                           autoComplete='off'
                           inputProps={{style: inputStyle}}
                           endAdornment={
@@ -151,7 +156,7 @@ function SimpleDialog(props) {
                           color="default"
                           className={classes.with}
                           startIcon={<img src={google} alt="google" width={25}/>}
-                          onClick={(e) => signInHandler(e)}
+                          onClick={signInGoogle}
                       >
                          Google
                       </Button>
@@ -180,6 +185,7 @@ SimpleDialog.propTypes = {
 
 export default function SimpleDialogDemo() {
    const [open, setOpen] = React.useState(false);
+   const auth = useAuth();
    
    const handleClickOpen = () => {
       setOpen(true);
@@ -189,6 +195,9 @@ export default function SimpleDialogDemo() {
       setOpen(false);
       history.push('/');
    };
+   if(auth.user){
+      setOpen(false);
+   }
    
    return (
        <div>

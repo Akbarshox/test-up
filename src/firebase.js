@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, {useState, useEffect, useContext, createContext} from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -18,19 +18,14 @@ firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-export const signInWithGoogle = () => {
-   const provider = new firebase.auth.GoogleAuthProvider();
-   firebase.auth().signInWithPopup(provider)
-       .then(result => console.log('SUCCESS', result))
-       .catch(error => console.log('ERROR', error));
-};
 
 const authContext = createContext();
 
-export function ProvideAuth({ children }) {
+export function ProvideAuth({children}) {
    const auth = useProvideAuth();
    return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
+
 // Hook for child components to get the auth object ...
 // ... and re-render when it changes.
 export const useAuth = () => {
@@ -41,8 +36,18 @@ export const useAuth = () => {
 function useProvideAuth() {
    const [user, setUser] = useState(null);
    
+   const signInWithGoogle = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+          .then(response => {
+             setUser(response.user);
+             return response.user;
+          })
+          .catch(error => console.log('ERROR', error));
+   };
    // Wrap any Firebase methods we want to use making sure ...
    // ... to save the user to state.
+   
    const signin = (email, password) => {
       return firebase
           .auth()
@@ -53,15 +58,17 @@ function useProvideAuth() {
           });
    };
    
-   const signup = (email, password) => {
+   const signup = (name, email, password) => {
       return firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(response => {
-             alert(response);
              setUser(response.user);
-             return response.user;
-          });
+             return response
+                 .user.updateProfile({
+                    displayName: name,
+                 })
+          })
    };
    
    const signout = () => {
@@ -107,11 +114,12 @@ function useProvideAuth() {
       // Cleanup subscription on unmount
       return () => unsubscribe();
    }, []);
-   
+   console.log(user);
    // Return the user object and auth methods
    return {
       user,
       signin,
+      signInWithGoogle,
       signup,
       signout,
       sendPasswordResetEmail,

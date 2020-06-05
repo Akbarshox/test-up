@@ -17,7 +17,7 @@ import {Store} from '../../Store';
 import TemporaryDrawer from './Drawer';
 import CartMenu from './CartMenu';
 import CartMobile from "./CartMobile";
-import Avatar from "@material-ui/core/Avatar";
+import {useAuth} from "../../firebase";
 
 const useStyles = makeStyles(theme => ({
    grow: {
@@ -85,6 +85,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header() {
    const classes = useStyles();
+   const auth = useAuth();
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
    
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -128,11 +129,16 @@ export default function Header() {
    return (
        <div>
           <div className={`${navbar} ${classes.sectionDesktop}`}>
-             <ul>
-                {/*<li className="account" ><Account/></li>*/}
-                <li><SignUp /></li>
-                <li><SignIn/></li>
-             </ul>
+             {auth.user ?
+                 <ul>
+                    <li className="account"><Account/></li>
+                 </ul>
+                 :
+                 <ul>
+                    <li><SignUp/></li>
+                    <li><SignIn/></li>
+                 </ul>
+             }
           </div>
           <div className={classes.grow}>
              <AppBar position="static" style={{backgroundColor: '#94B739', boxShadow: 'none'}}>
