@@ -17,12 +17,7 @@
     font-size: 18px;
     opacity: 0.9;
     color: #fff;
-    /*cursor: pointer;*/
-}
-
-.navbar li:hover {
-    background-color: #94A762;
-    color: #E2E2E2;
+    cursor: pointer;
 }
 
 .appbar {
@@ -38,6 +33,10 @@
 .price {
     position: absolute;
     margin-left: 190px;
+}
+
+.account {
+    margin-left: 70px;
 }
 
 .price-mobile {

@@ -12,10 +12,12 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
+import Account from "./auth/Account";
 import {Store} from '../../Store';
 import TemporaryDrawer from './Drawer';
 import CartMenu from './CartMenu';
 import CartMobile from "./CartMobile";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(theme => ({
    grow: {
@@ -127,6 +129,7 @@ export default function Header() {
        <div>
           <div className={`${navbar} ${classes.sectionDesktop}`}>
              <ul>
+                {/*<li className="account" ><Account/></li>*/}
                 <li><SignUp /></li>
                 <li><SignIn/></li>
              </ul>

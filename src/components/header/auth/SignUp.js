@@ -24,6 +24,8 @@ import googleImg from '../../../img/google.svg';
 import facebookImg from '../../../img/facebook.svg';
 import nameImg from '../../../img/name.svg';
 import history from '../../../history';
+import {useAuth} from "../../../firebase";
+import firebase from "firebase";
 
 const useStyles = makeStyles((theme) => ({
    avatar: {
@@ -76,49 +78,52 @@ function SimpleDialog(props) {
       onClose(selectedValue);
    };
    const inputStyle = {WebkitBoxShadow: "0 0 0 1000px white inset"};
+   const auth = useAuth();
    
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
-   const [displayName, setDisplayName] = useState("");
+   const [name, setName] = useState("");
    const [error, setError] = useState(null);
-   const createUserWithEmailAndPasswordHandler = (event, email, password) => {
-      event.preventDefault();
-      setEmail("");
-      setPassword("");
-      setDisplayName("");
+   
+   const [inputs, setInputs] = useState({});
+   const handleInputChange = (event) => {
+      event.persist();
+      setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+      console.log(inputs)
    };
-   const onChangeHandler = event => {
-      const { name, value } = event.currentTarget;
-      if (name === "userEmail") {
-         setEmail(value);
-      } else if (name === "userPassword") {
-         setPassword(value);
-      } else if (name === "displayName") {
-         setDisplayName(value);
-      }
+   const handleSubmit = (event) => {
+      event.preventDefault();
+      firebase.auth()
+          .createUserWithEmailAndPassword('akbarshoxiciic@bk.ru', '547778555585')
+          .then(response => {
+             alert(response);
+             return response.user;
+          });
+      
+      console.log(inputs)
    };
    
    return (
        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
           <DialogTitle id="simple-dialog-title">Sign Up</DialogTitle>
           <List>
-             <form className={classes.root} noValidate autoComplete="off">
-                <ListItem autoFocus>
-                   <ListItemAvatar>
-                      <img src={nameImg} alt="name" style={{width: '35px'}}/>
-                   </ListItemAvatar>
-                   <FormControl className={clsx(classes.margin, classes.textField)}>
-                      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>name</InputLabel>
-                      <Input
-                          type="text"
-                          name="displayName"
-                          value={displayName}
-                          id="displayName"
-                          onChange={event => onChangeHandler(event)}
-                          inputProps={{style: inputStyle}}
-                      />
-                   </FormControl>
-                </ListItem>
+             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                {/*<ListItem autoFocus>*/}
+                {/*   <ListItemAvatar>*/}
+                {/*      <img src={nameImg} alt="name" style={{width: '35px'}}/>*/}
+                {/*   </ListItemAvatar>*/}
+                {/*   <FormControl className={clsx(classes.margin, classes.textField)}>*/}
+                {/*      <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>name</InputLabel>*/}
+                {/*      <Input*/}
+                {/*          type="text"*/}
+                {/*          name="displayName"*/}
+                {/*          value={name}*/}
+                {/*          onChange={e => setName(e.target.value)}*/}
+                {/*          id="displayName"*/}
+                {/*          inputProps={{style: inputStyle}}*/}
+                {/*      />*/}
+                {/*   </FormControl>*/}
+                {/*</ListItem>*/}
                 <ListItem autoFocus>
                    <ListItemAvatar>
                       <img src={emailImg} alt="email"/>
@@ -128,10 +133,10 @@ function SimpleDialog(props) {
                       <Input
                           inputProps={{style: inputStyle}}
                           type="email"
-                          name="userEmail"
-                          value={email}
+                          value={inputs.email}
+                          onChange={handleInputChange}
+                          name="email"
                           id="userEmail"
-                          onChange={event => onChangeHandler(event)}
                       />
                    </FormControl>
                 </ListItem>
@@ -144,11 +149,11 @@ function SimpleDialog(props) {
                       <Input
                           type="password"
                           className="mt-1 mb-3 p-1 w-full"
-                          name="userPassword"
-                          value={password}
+                          name="password"
+                          value={inputs.password}
                           placeholder="Your Password"
                           id="userPassword"
-                          onChange={event => onChangeHandler(event)}
+                          onChange={handleInputChange}
                           style={{width: '200px'}}
                           autoComplete='off'
                           inputProps={{style: inputStyle}}
@@ -166,16 +171,15 @@ function SimpleDialog(props) {
                       />
                    </FormControl>
                 </ListItem>
+                <Button
+                    type="submit"
+                    color="default"
+                    className={classes.button}
+                >
+                   Sign up
+                </Button>
              </form>
-             <Button
-                 color="default"
-                 className={classes.button}
-                 onClick={event => {
-                    createUserWithEmailAndPasswordHandler(event, email, password);
-                 }}
-             >
-                Sign up
-             </Button>
+             
              <div className={classes.root}>{"or with"}</div>
              <div className="sign-in-list">
                 <ul>

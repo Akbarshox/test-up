@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import clsx from 'clsx';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -24,6 +24,7 @@ import passwordImg from '../../../img/password.svg';
 import google from '../../../img/google.svg';
 import facebook from '../../../img/facebook.svg';
 import history from '../../../history';
+import {useAuth} from '../../../firebase';
 
 const useStyles = makeStyles((theme) => ({
    avatar: {
@@ -72,34 +73,23 @@ function SimpleDialog(props) {
       onClose(selectedValue);
    };
    const inputStyle = {WebkitBoxShadow: "0 0 0 1000px white inset"};
+   const auth = useAuth();
    
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [error, setError] = useState(null);
-   const signInWithEmailAndPasswordHandler =
-       (event, email, password) => {
-          event.preventDefault();
-       };
-   
-   const onChangeHandler = (event) => {
-      const {name, value} = event.currentTarget;
-      
-      if(name === 'userEmail') {
-         setEmail(value);
-      }
-      else if(name === 'userPassword'){
-         setPassword(value);
-      }
-   };
    const signInHandler = (e) => {
-     e.preventDefault(signInWithGoogle());
+      e.preventDefault(signInWithGoogle());
+   };
+   const handleSubmit = (e) => {
+      e.preventDefault(auth.signin());
    };
    
    return (
        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
           <DialogTitle id="simple-dialog-title">Sign In</DialogTitle>
           <List>
-             <form className={classes.root} noValidate autoComplete="off">
+             <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <ListItem autoFocus>
                    <ListItemAvatar>
                       <img src={emailImg} alt="email"/>
@@ -111,7 +101,7 @@ function SimpleDialog(props) {
                           value = {email}
                           id="userEmail"
                           name="userEmail"
-                          onChange = {(event) => onChangeHandler(event)}
+                          onChange = {e => setEmail(e.target.value)}
                       />
                    </FormControl>
                 </ListItem>
@@ -123,8 +113,8 @@ function SimpleDialog(props) {
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
                           value={password}
+                          onChange={e => setPassword(e.target.value)}
                           id="userPassword"
-                          onChange = {(event) => onChangeHandler(event)}
                           type={values.showPassword ? 'text' : 'password'}
                           style={{width: '200px'}}
                           name="userPassword"
@@ -144,14 +134,15 @@ function SimpleDialog(props) {
                       />
                    </FormControl>
                 </ListItem>
+                <Button
+                    color="default"
+                    className={classes.button}
+                    type="submit"
+                >
+                   Sign in
+                </Button>
              </form>
-             <Button
-                 color="default"
-                 className={classes.button}
-                 onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}
-             >
-                Sign in
-             </Button>
+
              <div className={classes.root}>{"or with"}</div>
              <form className="sign-in-list">
                 <ul>
