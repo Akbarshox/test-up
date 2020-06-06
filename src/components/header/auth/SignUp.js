@@ -74,8 +74,6 @@ function SimpleDialog(props) {
    const inputStyle = {WebkitBoxShadow: "0 0 0 1000px white inset"};
    const auth = useAuth();
    
-   const [error, setError] = useState(null);
-   
    const [inputs, setInputs] = useState({});
    const handleInputChange = (event) => {
       event.persist();
@@ -98,6 +96,7 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>name</InputLabel>
                       <Input
+                          error={auth.error !== null}
                           type="text"
                           name="name"
                           value={inputs.name}
@@ -114,6 +113,7 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>email</InputLabel>
                       <Input
+                          error={auth.error !== null}
                           inputProps={{style: inputStyle}}
                           type="email"
                           value={inputs.email}
@@ -130,6 +130,7 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
+                          error={auth.error !== null}
                           type={values.showPassword ? 'text' : 'password'}
                           className="mt-1 mb-3 p-1 w-full"
                           name="password"
@@ -199,6 +200,7 @@ SimpleDialog.propTypes = {
 
 export default function SimpleDialogDemo() {
    const [open, setOpen] = React.useState(false);
+   const auth = useAuth();
    
    const handleClickOpen = () => {
       setOpen(true);
@@ -206,6 +208,7 @@ export default function SimpleDialogDemo() {
    
    const handleClose = () => {
       setOpen(false);
+      auth.setError(null);
       history.push('/');
    };
    

@@ -79,17 +79,16 @@ function SimpleDialog(props) {
    const auth = useAuth();
    
    const [inputs, setInputs] = useState({});
-   const [error, setError] = useState(null);
+   
    const signInGoogle = (e) => {
       e.preventDefault();
       auth.signInWithGoogle();
    };
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(inputs);
       auth.signin(inputs.email, inputs.password);
    };
-   
+   console.log(auth.error);
    return (
        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
           <DialogTitle id="simple-dialog-title">Sign In</DialogTitle>
@@ -102,11 +101,12 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>email</InputLabel>
                       <Input
+                          error={auth.error !== null}
                           inputProps={{style: inputStyle}}
-                          value = {inputs.email}
+                          value={inputs.email}
                           id="userEmail"
                           name="email"
-                          onChange = {handleInputChange}
+                          onChange={handleInputChange}
                       />
                    </FormControl>
                 </ListItem>
@@ -117,6 +117,7 @@ function SimpleDialog(props) {
                    <FormControl className={clsx(classes.margin, classes.textField)}>
                       <InputLabel htmlFor="standard-adornment-password" style={{zIndex: '1000'}}>Password</InputLabel>
                       <Input
+                          error={auth.error !== null}
                           value={inputs.password}
                           onChange={handleInputChange}
                           id="userPassword"
@@ -147,7 +148,7 @@ function SimpleDialog(props) {
                    Sign in
                 </Button>
              </form>
-
+             
              <div className={classes.root}>{"or with"}</div>
              <form className="sign-in-list">
                 <ul>
@@ -193,9 +194,10 @@ export default function SimpleDialogDemo() {
    
    const handleClose = () => {
       setOpen(false);
+      auth.setError(null);
       history.push('/');
    };
-   if(auth.user){
+   if (auth.user) {
       setOpen(false);
    }
    

@@ -35,6 +35,7 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
    const [user, setUser] = useState(null);
+   const [error, setError] = useState(null);
    
    const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -55,6 +56,9 @@ function useProvideAuth() {
           .then(response => {
              setUser(response.user);
              return response.user;
+          })
+          .catch(error => {
+             setError(error);
           });
    };
    
@@ -69,6 +73,9 @@ function useProvideAuth() {
                     displayName: name,
                  })
           })
+          .catch(error => {
+             setError(error);
+          });
    };
    
    const signout = () => {
@@ -77,6 +84,9 @@ function useProvideAuth() {
           .signOut()
           .then(() => {
              setUser(false);
+          })
+          .catch(error => {
+             setError(error);
           });
    };
    
@@ -86,6 +96,9 @@ function useProvideAuth() {
           .sendPasswordResetEmail(email)
           .then(() => {
              return true;
+          })
+          .catch(error => {
+             setError(error);
           });
    };
    
@@ -95,6 +108,9 @@ function useProvideAuth() {
           .confirmPasswordReset(code, password)
           .then(() => {
              return true;
+          })
+          .catch(error => {
+             setError(error);
           });
    };
    
@@ -114,7 +130,7 @@ function useProvideAuth() {
       // Cleanup subscription on unmount
       return () => unsubscribe();
    }, []);
-   console.log(user);
+   
    // Return the user object and auth methods
    return {
       user,
@@ -123,6 +139,8 @@ function useProvideAuth() {
       signup,
       signout,
       sendPasswordResetEmail,
-      confirmPasswordReset
+      confirmPasswordReset,
+      error,
+      setError
    };
 }
