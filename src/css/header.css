@@ -27,7 +27,7 @@
 
 .btn-delete {
     position: absolute;
-    right: 0
+    margin-left: 240px;
 }
 
 .price {

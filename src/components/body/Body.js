@@ -56,7 +56,7 @@ export default function Body() {
              <Sizes/>
              <Grid container className='paper'>
                 {searchResult.map((e, i) =>
-                    <Grid item md={4} className={classes.grid} key={i}>
+                    <Grid item lg={4} className={classes.grid} key={i}>
                        <div className={classes.paper}><Card {...e} /></div>
                     </Grid>
                 )}

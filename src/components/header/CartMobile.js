@@ -14,11 +14,11 @@ import sortBy from 'lodash/sortBy';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { Divider } from '@material-ui/core';
+import {Divider} from '@material-ui/core';
+import Button from "@material-ui/core/Button";
 import {Store} from '../../Store';
 import Tshirt from '../../img/t-shirt.svg';
 import DeleteIcon from '../../img/delete.svg';
-import Button from "@material-ui/core/Button";
 import approve from "../../img/approve.svg";
 
 function Alert(props) {
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
       justifyContent: 'center',
       width: '220px',
       color: '#3E9B4C',
-      marginLeft: `${(window.innerWidth - 220)/2}px`
+      marginLeft: `${(window.innerWidth - 220) / 2}px`
    }
 });
 const StyledBadge = withStyles((theme) => ({
@@ -85,16 +85,16 @@ export default function CartMobile() {
                            <ListItemText primary={e.name}/>
                            <ListItemText className="price-mobile" primary={' - ' + e.price + '$'}/>
                            <ListItemIcon className="btn-delete" disableTouchRipple={false}>
-                              <Button onClick={handleDelete.bind(this, e)}><img src={DeleteIcon} style={{width: '35px'}}
+                              <Button onClick={handleDelete.bind(this, e)}><img src={DeleteIcon} style={{width: '20px'}}
                                                                                 alt="delete"/></Button>
                            </ListItemIcon>
                         </ListItem>
                     ))}
-                    <Divider light />
+                    <Divider light/>
                     <Button
                         color="default"
                         className={classes.button}
-                        startIcon={<img src={approve} alt="approve" width={25} />}
+                        startIcon={<img src={approve} alt="approve" width={25}/>}
                         // onClick={handleClick.bind(this, e)}
                     >
                        Approve
