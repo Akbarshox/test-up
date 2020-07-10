@@ -19,21 +19,21 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const authContext = createContext();
+export const AuthContext = createContext();
 
 export function ProvideAuth({children}) {
    const auth = useProvideAuth();
-   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-}
+   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+};
 
 // Hook for child components to get the auth object ...
 // ... and re-render when it changes.
 export const useAuth = () => {
-   return useContext(authContext);
+   return useContext(AuthContext);
 };
 
 // Provider hook that creates auth object and handles state
-function useProvideAuth() {
+export default function useProvideAuth() {
    const [user, setUser] = useState(null);
    const [error, setError] = useState(null);
    
