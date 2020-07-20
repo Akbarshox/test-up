@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
+import {Store} from "../../../Store";
 import {useAuth} from "../../../firebase";
 import user from '../../../img/user.svg'
 import signout from '../../../img/sign-out.svg'
 
 export default function SimpleMenu() {
    const [anchorEl, setAnchorEl] = React.useState(null);
+   const {state, dispatch} = useContext(Store);
    const auth = useAuth();
-   console.log(auth.user);
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
    };
@@ -17,7 +18,10 @@ export default function SimpleMenu() {
    const handleClose = () => {
       setAnchorEl(null);
    };
-   
+   const handleOut = (e) => {
+      auth.signout();
+      // return dispatch({type: 'USER', payload: []})
+   };
    return (
        <div>
           <Avatar aria-haspopup="true" onClick={handleClick} src={user}/>
@@ -29,8 +33,8 @@ export default function SimpleMenu() {
               onClose={handleClose}
           >
              {/*<MenuItem onClick={handleClose}>Profile</MenuItem>*/}
-             <MenuItem>{auth.user.displayName}</MenuItem>
-             <MenuItem onClick={e => auth.signout()}><Avatar src={signout} />Logout</MenuItem>
+             <MenuItem>{state.user.displayName}</MenuItem>
+             <MenuItem onClick={handleOut}><Avatar src={signout} />Logout</MenuItem>
           </Menu>
        </div>
    );

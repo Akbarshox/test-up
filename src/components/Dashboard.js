@@ -9,13 +9,13 @@ export default function Dashboard() {
    
    return (
        <div>
-          <Fetch/>
           <ProvideAuth>
+             <Fetch/>
              <Header/>
+             <Container>
+                <Body/>
+             </Container>
           </ProvideAuth>
-          <Container>
-             <Body/>
-          </Container>
        </div>
    )
 }

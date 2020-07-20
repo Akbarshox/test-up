@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {Store} from '../../Store';
+import {useAuth} from "../../firebase";
 
 const useStyles = makeStyles({
    root: {
@@ -23,10 +24,14 @@ const useStyles = makeStyles({
 export default function ImgMediaCard(e) {
    const classes = useStyles();
    const {dispatch} = useContext(Store);
+   const auth = useAuth();
    const store = useContext(Store);
+   
    function handleClick(e) {
+      auth.addData(e);
       return dispatch({type: 'ADD_CART', payload: e}), dispatch({type: 'ID', payload: e.id});
-   }
+   };
+   
    const amount =  store.state.addToCart.reduce((count, book) => count + (book.id === e.id ? 1 : 0), 0);
    return (
        <Card className={classes.root}>

@@ -12,6 +12,8 @@ export default function reducer(state, action) {
          return {...state, id: action.payload};
       case 'DELETE':
          return {...state, addToCart: state.addToCart.filter(item => item !== action.payload)};
+      case 'USER':
+         return {...state, user: action.payload};
       default:
          return state;
    }

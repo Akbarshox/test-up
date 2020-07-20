@@ -203,7 +203,7 @@ export default function SimpleDialogDemo() {
    
    return (
        <div>
-          <Link to="/signin" onClick={handleClickOpen}><MenuItem className="btn-auth">Sign in</MenuItem></Link>
+          <MenuItem className="btn-auth" onClick={handleClickOpen}>Sign in</MenuItem>
           <SimpleDialog open={open} onClose={handleClose}/>
        </div>
    );

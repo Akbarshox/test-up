@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext, createContext} from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import {Store} from "./Store";
 
 const firebaseConfig = {
    apiKey: "AIzaSyAzsyzpdYrgDAXdp6-cxxeSNbr5rBrwdwM",
@@ -17,7 +18,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+export const db = firebase.firestore();
 
 export const AuthContext = createContext();
 
@@ -34,8 +35,27 @@ export const useAuth = () => {
 
 // Provider hook that creates auth object and handles state
 export default function useProvideAuth() {
-   const [user, setUser] = useState(null);
+   const [user, setUser] = useState([]);
    const [error, setError] = useState(null);
+   const {dispatch} = useContext(Store);
+   
+   useEffect(() => {
+      return dispatch({type: 'USER', payload: user});
+   }, [user]);
+   
+   console.log(user.uid);
+   
+   const addData = (e) => {
+      db.collection("users").doc(user.uid).set(
+          e
+      )
+          .then(function (res) {
+             console.log("Document written with ID: ", res);
+          })
+          .catch(function (error) {
+             console.error("Error adding document: ", error);
+          });
+   };
    
    const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -131,9 +151,20 @@ export default function useProvideAuth() {
       return () => unsubscribe();
    }, []);
    
+   // useEffect(() => {
+   //    db.collection("users").doc(user.uid)
+   //        .onSnapshot(function (doc) {
+   //           console.log("Current data: ", doc.data());
+   //        })
+   //        .catch(error => {
+   //           console.log(error);
+   //        });
+   // }, [user]);
+   
    // Return the user object and auth methods
    return {
       user,
+      addData,
       signin,
       signInWithGoogle,
       signup,

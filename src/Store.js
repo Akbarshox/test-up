@@ -10,6 +10,7 @@ const initialState = {
    searchQuery: '',
    filterBy: '',
    id: [],
+   user: []
 };
 
 export function StoreProvider(props) {
