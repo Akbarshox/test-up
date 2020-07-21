@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext, createContext} from "react";
-import firebase from "firebase/app";
+import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import {Store} from "./Store";
@@ -19,6 +19,7 @@ firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 export const db = firebase.firestore();
+export const realDb = firebase.database();
 
 export const AuthContext = createContext();
 
@@ -43,18 +44,18 @@ export default function useProvideAuth() {
       return dispatch({type: 'USER', payload: user});
    }, [user]);
    
-   console.log(user.uid);
-   
    const addData = (e) => {
-      db.collection("users").doc(user.uid).set(
-          e
-      )
-          .then(function (res) {
-             console.log("Document written with ID: ", res);
+      realDb.ref(`likes/${user.uid}`).child(e.id).set({
+         id: e.id,
+         image: e.image,
+         name: e.name,
+         price: e.price,
+         size: e.size
+      })
+          .catch((error) => {
+             alert("auth error");
+             console.log(error);
           })
-          .catch(function (error) {
-             console.error("Error adding document: ", error);
-          });
    };
    
    const signInWithGoogle = () => {

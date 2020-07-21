@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
+import firebase from "firebase";
 import {Store} from '../Store';
 import {db} from "../firebase";
 
@@ -21,10 +22,12 @@ export default function Fetch() {
    
    useEffect(() => {
       if (state.user.uid) {
-         db.collection("users").doc(state.user.uid)
-             .onSnapshot(function (doc) {
-                console.log("Current data: ", doc.data());
-             })
+         firebase.database().ref(`/likes/${state.user.uid}`)
+             .on('value', snapshot => {
+                console.log(snapshot.val())
+                // dispatch({type: TODO_FETCH_SUCCESS, payload: snapshot.val()});
+             });
+ 
       }
    }, [state.user.uid]);
    
