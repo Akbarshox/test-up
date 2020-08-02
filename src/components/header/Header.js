@@ -18,6 +18,7 @@ import TemporaryDrawer from './Drawer';
 import CartMenu from './CartMenu';
 import CartMobile from "./CartMobile";
 import {useAuth} from "../../firebase";
+import Likes from "./Like";
 
 const useStyles = makeStyles(theme => ({
    grow: {
@@ -166,9 +167,7 @@ export default function Header() {
                    </div>
                    <div className={classes.grow}/>
                    <div className={classes.sectionDesktop}>
-                      <IconButton aria-label="show 4 new mails" color="inherit">
-                         <FavoriteBorderIcon/>
-                      </IconButton>
+                      <Likes />
                       <CartMenu/>
                    </div>
                    <div className={classes.sectionMobile}>

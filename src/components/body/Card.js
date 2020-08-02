@@ -34,26 +34,27 @@ const useStyles = makeStyles({
 
 export default function ImgMediaCard(e) {
    const classes = useStyles();
-   const {dispatch} = useContext(Store);
+   const {dispatch, state} = useContext(Store);
    const auth = useAuth();
    const store = useContext(Store);
    const [color, setColor] = useState(false);
    
    function handleChange(e) {
-      // console.log(e);
-      setColor(!color);
+      auth.addData(e);
+      console.log(state.likes)
+      // setColor(!color);
    }
    
    function handleClick(e) {
-      auth.addData(e);
       return dispatch({type: 'ADD_CART', payload: e}), dispatch({type: 'ID', payload: e.id});
    };
    
-   const amount =  store.state.addToCart.reduce((count, book) => count + (book.id === e.id ? 1 : 0), 0);
+   const amount = store.state.addToCart.reduce((count, book) => count + (book.id === e.id ? 1 : 0), 0);
    return (
        <Card className={classes.root}>
           <IconButton aria-label="show 4 new mails" className={classes.heart} onClick={handleChange.bind(this, e)}>
-             <FavoriteBorderIcon className={color === true ? classes.heartColor : null}/>
+             <FavoriteBorderIcon />
+             {/*className={state.likes.map(r => r.id === e.id ? classes.heartColor : null)}*/}
           </IconButton>
           <CardMedia
               component="img"

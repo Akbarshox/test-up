@@ -58,6 +58,14 @@ export default function useProvideAuth() {
           })
    };
    
+   const delData = ((e) => {
+      realDb.ref(`likes/${user.uid}`).child(e.id).remove()
+          .catch((error) => {
+             alert("auth error");
+             console.log(error);
+          })
+   });
+   
    const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider)
@@ -166,6 +174,7 @@ export default function useProvideAuth() {
    return {
       user,
       addData,
+      delData,
       signin,
       signInWithGoogle,
       signup,

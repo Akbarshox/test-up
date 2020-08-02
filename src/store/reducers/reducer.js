@@ -14,6 +14,8 @@ export default function reducer(state, action) {
          return {...state, addToCart: state.addToCart.filter(item => item !== action.payload)};
       case 'USER':
          return {...state, user: action.payload};
+      case 'LIKES':
+         return {...state, likes: action.payload};
       default:
          return state;
    }

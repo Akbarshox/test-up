@@ -10,7 +10,8 @@ const initialState = {
    searchQuery: '',
    filterBy: '',
    id: [],
-   user: []
+   user: [],
+   likes: []
 };
 
 export function StoreProvider(props) {
