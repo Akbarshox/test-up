@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Pagination from '@material-ui/lab/Pagination';
 import {Store} from '../../Store';
-import Card from './Card';
+import Card from './Cards/Card';
 import Sizes from './Sizes';
 import Skelet from './Skeleton';
 import filter from 'lodash/filter';
+import style from './body.module.css';
 
 const useStyles = makeStyles(theme => ({
    root: {
@@ -24,10 +26,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function Body() {
    const classes = useStyles();
-   const data = React.useContext(Store);
+   const data = useContext(Store);
+   const pageLimit = 5;
    const searchItem = data.state.searchQuery;
-   const [searchResult, setSearchResult] = React.useState(data.state.data);
-   
+   const [searchResult, setSearchResult] = useState(data.state.data);
+   const [offset, setOffset] = useState(0);
+   const [currentPage, setCurrentPage] = useState(1);
+   const [currentData, setCurrentData] = useState(data.state.data);
+
    React.useEffect(() => {
       setSearchResult(data.state.data);
    }, [data.state.data]);
@@ -39,6 +45,7 @@ export default function Body() {
           );
       const sortBy = (data, filterBy) => {
          if (filterBy) {
+            setOffset(0);
             return filter(data, {'size': filterBy});
          } else {
             return data;
@@ -47,9 +54,10 @@ export default function Body() {
       const searchData = (data, filterBy) => {
          return sortBy(result(data), filterBy);
       };
-      setSearchResult(searchData(data.state.data, data.state.filterBy));
-   }, [data.state.data, data.state.filterBy, searchItem]);
-   
+      setCurrentData(searchData(data.state.data, data.state.filterBy));
+      setSearchResult(searchData(data.state.data, data.state.filterBy).slice(offset, offset + pageLimit));
+   }, [data.state.data, data.state.filterBy, searchItem, offset, pageLimit]);
+
    if (searchResult.length !== 0) {
       return (
           <div className={classes.root}>
@@ -61,6 +69,15 @@ export default function Body() {
                     </Grid>
                 )}
              </Grid>
+             <div className={style.pagination}>
+                <Pagination
+                   count={Math.ceil(currentData.length/pageLimit)}
+                   onChange={(e, val) => setOffset((val-1)*pageLimit)}
+                   defaultPage={currentPage}
+                   variant="outlined"
+                   size="medium"
+                />
+             </div>
           </div>
       )
    } else {

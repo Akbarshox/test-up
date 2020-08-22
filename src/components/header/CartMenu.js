@@ -112,7 +112,7 @@ export default function CustomizedMenus() {
                         <div>{e.name}</div>
                         <div className="price"> - {e.price}$</div>
                         <div className="btn-delete">
-                           <Button onClick={handleDelete.bind(this, e)}><img src={DeleteIcon} style={{width: '35px'}}
+                           <Button onClick={() => handleDelete(e)}><img src={DeleteIcon} style={{width: '35px'}}
                                                                              alt="delete"/></Button>
                         </div>
                      </MenuItem>

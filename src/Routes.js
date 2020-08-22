@@ -1,16 +1,15 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, BrowserRouter, Redirect} from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import SignIn from "./components/header/auth/SignIn";
-import SignUp from "./components/header/auth/SignUp";
+import PageNotFound from "./PageNotFound";
 
 export default function Routes() {
    return (
        <BrowserRouter>
           <Switch>
-             <Route path='/' component={Dashboard}/>
-             {/*<Route path='/signin' component={SignIn}/>*/}
-             {/*<Route path='/signup' component={SignUp}/>*/}
+             <Route exact path="/" render={() => <Redirect to="/dashboard"/>}/>
+             <Route exact path='/dashboard' component={Dashboard}/>
+             <Route exact path='*' component={PageNotFound} />
           </Switch>
        </BrowserRouter>
    )

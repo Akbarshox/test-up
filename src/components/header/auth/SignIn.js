@@ -88,7 +88,7 @@ function SimpleDialog(props) {
       e.preventDefault();
       auth.signin(inputs.email, inputs.password);
    };
-   console.log(auth.error);
+
    return (
        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
           <DialogTitle id="simple-dialog-title">Sign In</DialogTitle>

@@ -1,0 +1,65 @@
+.modal {
+    background: white;
+    width: 400px;
+    margin: 7% 35%;
+    border-radius: 3px;
+}
+
+.modalPic img {
+    width: 400px;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.close {
+    z-index: 1000;
+    width: 35px;
+    position: absolute;
+    padding: 5px;
+}
+
+.modalInfo {
+    list-style-type: none;
+}
+
+.modalInfo li:nth-child(1) {
+    margin: 20px 0 5px;
+    font-family: cursive, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modalInfo li:nth-child(2) {
+    font-family: cursive, sans-serif;
+    font-size: 18px;
+}
+
+.modalInfo li:nth-child(3) {
+    font-family: cursive, sans-serif;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.modalPricing {
+    list-style-type: none;
+    display: inline-flex;
+}
+
+.pagination {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+@media (max-width: 600px) {
+    .modal {
+        width: 100%;
+        margin: 10px 0 0;
+    }
+
+    .modalPic img {
+        width: 100%;
+        height: auto;
+    }
+}

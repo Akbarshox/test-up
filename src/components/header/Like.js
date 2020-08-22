@@ -74,7 +74,7 @@ export default function CustomizedMenus() {
    function handleDelete(e) {
       auth.delData(e);
    };
-   console.log(state.likes)
+
    return (
        <div>
           <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleClick}>
