@@ -25,11 +25,6 @@
     box-shadow: none;
 }
 
-.btn-delete {
-    position: absolute;
-    margin-left: 240px;
-}
-
 .price {
     position: absolute;
     margin-left: 190px;
@@ -37,11 +32,6 @@
 
 .account {
     margin-left: 70px;
-}
-
-.price-mobile {
-    position: absolute;
-    margin-left: 230px;
 }
 
 .sign-in-list li {
@@ -53,5 +43,16 @@
 @media (max-width: 1100px) {
     .navbar ul {
         margin-left: 75%;
+    }
+}
+
+@media (min-width: 1100px) {
+    .btn-delete {
+        position: absolute;
+        margin-left: 240px;
+    }
+    .price-mobile {
+        position: absolute;
+        margin-left: 230px;
     }
 }

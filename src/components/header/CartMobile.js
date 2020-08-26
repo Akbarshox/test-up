@@ -20,6 +20,7 @@ import {Store} from '../../Store';
 import Tshirt from '../../img/t-shirt.svg';
 import DeleteIcon from '../../img/delete.svg';
 import approve from "../../img/approve.svg";
+import style from './header.module.css';
 
 function Alert(props) {
    return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -33,11 +34,12 @@ const useStyles = makeStyles({
       width: 'auto',
    },
    button: {
+      marginTop: 5,
       justifyContent: 'center',
       width: '220px',
       color: '#3E9B4C',
       marginLeft: `${(window.innerWidth - 220) / 2}px`
-   }
+   },
 });
 const StyledBadge = withStyles((theme) => ({
    badge: {
@@ -57,75 +59,75 @@ export default function CartMobile() {
    const [state, setState] = React.useState({
       bottom: false
    });
-   
+
    const toggleDrawer = (anchor, open) => (event) => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
          return;
       }
       setState({...state, [anchor]: open});
    };
-   
+
    function handleDelete(e) {
       return dispatch({type: 'DELETE', payload: e});
    }
-   
+
    const list = (anchor) => (
-       <div>
-          {cart.length !== 0 ?
-              <div
-                  className={clsx(classes.list, {
-                     [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-                  })}
-                  role="presentation"
-              >
-                 <List>
-                    {cart.map((e, i) => (
-                        <ListItem button key={i} disableTouchRipple={true}>
-                           <ListItemIcon><img src={Tshirt} alt="t-shirt"/></ListItemIcon>
-                           <ListItemText primary={e.name}/>
-                           <ListItemText className="price-mobile" primary={' - ' + e.price + '$'}/>
-                           <ListItemIcon className="btn-delete" disableTouchRipple={false}>
-                              <Button onClick={handleDelete.bind(this, e)}><img src={DeleteIcon} style={{width: '20px'}}
-                                                                                alt="delete"/></Button>
-                           </ListItemIcon>
-                        </ListItem>
-                    ))}
-                    <Divider light/>
-                    <Button
-                        color="default"
-                        className={classes.button}
-                        startIcon={<img src={approve} alt="approve" width={25}/>}
-                        // onClick={handleClick.bind(this, e)}
-                    >
-                       Approve
-                    </Button>
-                 </List>
-              </div>
-              : <Snackbar open={true}>
-                 <Alert severity="warning">
-                    Your cart is empty
-                 </Alert>
-              </Snackbar>}
-       </div>
+      <div>
+         {cart.length !== 0 ?
+            <div
+               className={clsx(classes.list, {
+                  [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+               })}
+               role="presentation"
+            >
+               <List>
+                  {cart.map((e, i) => (
+                     <ListItem button key={i} disableTouchRipple={true}>
+                        <ListItemIcon><img src={Tshirt} alt="t-shirt"/></ListItemIcon>
+                        <ListItemText primary={e.name}/>
+                        <ListItemText className="price-mobile" primary={' - ' + e.price + '$'}/>
+                        <ListItemIcon className="btn-delete" disableTouchRipple={false}>
+                           <Button onClick={() => handleDelete(e)}><img src={DeleteIcon} alt="delete"
+                                                                        className={style.del}/></Button>
+                        </ListItemIcon>
+                     </ListItem>
+                  ))}
+                  <Divider light/>
+                  <Button
+                     color="default"
+                     className={classes.button}
+                     startIcon={<img src={approve} alt="approve" width={25}/>}
+                     // onClick={handleClick.bind(this, e)}
+                  >
+                     Approve
+                  </Button>
+               </List>
+            </div>
+            : <Snackbar open={true}>
+               <Alert severity="warning">
+                  Your cart is empty
+               </Alert>
+            </Snackbar>}
+      </div>
    );
-   
+
    return (
-       <div>
-          {['bottom'].map((anchor) => (
-              <React.Fragment key={anchor}>
-                 <MenuItem onClick={toggleDrawer(anchor, true)}>
-                    <IconButton color="inherit">
-                       <StyledBadge badgeContent={store.state.addToCart.length} color="primary">
-                          <ShoppingCartOutlinedIcon/>
-                       </StyledBadge>
-                    </IconButton>
-                    <p>My cart</p>
-                 </MenuItem>
-                 <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                    {list(anchor)}
-                 </Drawer>
-              </React.Fragment>
-          ))}
-       </div>
+      <div>
+         {['bottom'].map((anchor) => (
+            <React.Fragment key={anchor}>
+               <MenuItem onClick={toggleDrawer(anchor, true)}>
+                  <IconButton color="inherit">
+                     <StyledBadge badgeContent={store.state.addToCart.length} color="primary">
+                        <ShoppingCartOutlinedIcon/>
+                     </StyledBadge>
+                  </IconButton>
+                  <p>My cart</p>
+               </MenuItem>
+               <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+                  {list(anchor)}
+               </Drawer>
+            </React.Fragment>
+         ))}
+      </div>
    );
 }
