@@ -19,6 +19,7 @@ import CartMenu from './CartMenu';
 import CartMobile from "./CartMobile";
 import {useAuth} from "../../firebase";
 import Likes from "./Like";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
    grow: {
@@ -81,110 +82,117 @@ const useStyles = makeStyles(theme => ({
          display: 'none',
       },
    },
+   link: {
+      textDecoration: 'none',
+      color: '#fff'
+   }
 }));
 
 
-export default function Header() {
+export default function Header(props) {
    const classes = useStyles();
    const auth = useAuth();
+   const [searchItem, setSearchItem] = React.useState("");
+   const {dispatch} = React.useContext(Store);
+
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-   
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-   
    const handleMobileMenuClose = () => {
+
       setMobileMoreAnchorEl(null);
    };
-   
    const handleMobileMenuOpen = event => {
       setMobileMoreAnchorEl(event.currentTarget);
    };
    var navbar = (
-       'navbar'
+      'navbar'
    );
-   const {dispatch} = React.useContext(Store);
-   const [searchItem, setSearchItem] = React.useState("");
    const handleChange = event => {
       setSearchItem(event.target.value);
       return dispatch({type: 'SEARCH', payload: event.target.value})
    };
    const mobileMenuId = 'primary-search-account-menu-mobile';
    const renderMobileMenu = (
-       <Menu
-           anchorEl={mobileMoreAnchorEl}
-           anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-           id={mobileMenuId}
-           keepMounted
-           transformOrigin={{vertical: 'top', horizontal: 'right'}}
-           open={isMobileMenuOpen}
-           onClose={handleMobileMenuClose}
-       >
-          <MenuItem>
-             <IconButton aria-label="show 4 new mails" color="inherit">
-                <FavoriteBorderIcon/>
-             </IconButton>
-             <p>Favourite</p>
-          </MenuItem>
-          <CartMobile/>
-       </Menu>
+      <Menu
+         anchorEl={mobileMoreAnchorEl}
+         anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+         id={mobileMenuId}
+         keepMounted
+         transformOrigin={{vertical: 'top', horizontal: 'right'}}
+         open={isMobileMenuOpen}
+         onClose={handleMobileMenuClose}
+      >
+         <MenuItem>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+               <FavoriteBorderIcon/>
+            </IconButton>
+            <p>Favourite</p>
+         </MenuItem>
+         <CartMobile {...props} />
+      </Menu>
    );
    return (
-       <div>
-          <div className={`${navbar} ${classes.sectionDesktop}`}>
-             {auth.user ?
-                 <ul>
-                    <li className="account"><Account/></li>
-                 </ul>
-                 :
-                 <ul>
-                    <li><SignUp/></li>
-                    <li><SignIn/></li>
-                 </ul>
-             }
-          </div>
-          <div className={classes.grow}>
-             <AppBar position="static" style={{backgroundColor: '#94B739', boxShadow: 'none'}}>
-                <Toolbar>
-                   <div className={classes.sectionMobile}>
-                      <TemporaryDrawer/>
-                   </div>
-                   <Typography className={classes.title} variant="h6" noWrap>
-                      Summer-clothes
-                   </Typography>
-                   <div className={classes.search}>
-                      <div className={classes.searchIcon}>
-                         <SearchIcon/>
-                      </div>
-                      <InputBase
-                          placeholder="Search…"
-                          classes={{
-                             root: classes.inputRoot,
-                             input: classes.inputInput,
-                          }}
-                          inputProps={{'aria-label': 'search'}}
-                          value={searchItem}
-                          onChange={handleChange}
-                      />
-                   </div>
-                   <div className={classes.grow}/>
-                   <div className={classes.sectionDesktop}>
-                      <Likes />
-                      <CartMenu/>
-                   </div>
-                   <div className={classes.sectionMobile}>
-                      <IconButton
-                          aria-label="show more"
-                          aria-controls={mobileMenuId}
-                          aria-haspopup="true"
-                          onClick={handleMobileMenuOpen}
-                          color="inherit"
-                      >
-                         <MoreIcon/>
-                      </IconButton>
-                   </div>
-                </Toolbar>
-             </AppBar>
-             {renderMobileMenu}
-          </div>
-       </div>
+      <div>
+         <div className={`${navbar} ${classes.sectionDesktop}`}>
+            {auth.user ?
+               <ul>
+                  <li className="account"><Account/></li>
+               </ul>
+               :
+               <ul>
+                  <li><SignUp/></li>
+                  <li><SignIn/></li>
+               </ul>
+            }
+         </div>
+         <div className={classes.grow}>
+            <AppBar position="static" style={{backgroundColor: '#94B739', boxShadow: 'none'}}>
+               <Toolbar>
+                  <div className={classes.sectionMobile}>
+                     <TemporaryDrawer/>
+                  </div>
+                  <Link to="/dashboard" className={classes.link}>
+                     <Typography className={classes.title} variant="h6" noWrap>
+                        Summer-clothes
+                     </Typography>
+                  </Link>
+                  {props.location.pathname === '/dashboard' ?
+                     <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                           <SearchIcon/>
+                        </div>
+                        <InputBase
+                           placeholder="Search…"
+                           classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                           }}
+                           inputProps={{'aria-label': 'search'}}
+                           value={searchItem}
+                           onChange={handleChange}
+                        />
+                     </div>
+                     : null}
+                  <div className={classes.grow}/>
+                  <div className={classes.sectionDesktop}>
+                     <Likes/>
+                     <CartMenu {...props} />
+                  </div>
+                  <div className={classes.sectionMobile}>
+                     <IconButton
+                        aria-label="show more"
+                        aria-controls={mobileMenuId}
+                        aria-haspopup="true"
+                        onClick={handleMobileMenuOpen}
+                        color="inherit"
+                     >
+                        <MoreIcon/>
+                     </IconButton>
+                  </div>
+               </Toolbar>
+            </AppBar>
+            {renderMobileMenu}
+         </div>
+      </div>
    )
 }

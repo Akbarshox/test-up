@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import {Link} from 'react-router-dom';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -51,15 +52,15 @@ const StyledBadge = withStyles((theme) => ({
    },
 }))(Badge);
 
-export default function CartMobile() {
+export default function CartMobile(props) {
    const store = React.useContext(Store);
    const {dispatch} = React.useContext(Store);
    const cart = sortBy(uniqBy(store.state.addToCart, "id"), 'id', 'asc');
+   localStorage.setItem('zakazi', JSON.stringify(cart))
    const classes = useStyles();
    const [state, setState] = React.useState({
       bottom: false
    });
-
    const toggleDrawer = (anchor, open) => (event) => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
          return;
@@ -93,14 +94,18 @@ export default function CartMobile() {
                      </ListItem>
                   ))}
                   <Divider light/>
-                  <Button
-                     color="default"
-                     className={classes.button}
-                     startIcon={<img src={approve} alt="approve" width={25}/>}
-                     // onClick={handleClick.bind(this, e)}
-                  >
-                     Approve
-                  </Button>
+                  {props.location.pathname === '/dashboard' ?
+                     <Link to="/cashdesk">
+                        <Button
+                           color="default"
+                           className={classes.button}
+                           startIcon={<img src={approve} alt="approve" width={25}/>}
+                           // onClick={handleClick.bind(this, e)}
+                        >
+                           Approve
+                        </Button>
+                     </Link>
+                     : null}
                </List>
             </div>
             : <Snackbar open={true}>

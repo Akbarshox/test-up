@@ -17,10 +17,14 @@
     "react-async": "^10.0.1",
     "react-dom": "^16.13.1",
     "react-image-magnifiers": "^1.4.0",
+    "react-number-format": "^4.4.1",
     "react-responsive-carousel": "^3.2.9",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "react-text-mask": "^5.4.3",
+    "react-yandex-maps": "^4.4.0",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "prop-types": "^15.7.2",
     "sw-precache": "^5.2.1",
     "use-reducer-logger": "^1.0.1"
   }

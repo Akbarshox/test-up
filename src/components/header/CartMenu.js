@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
@@ -42,25 +43,25 @@ const StyledMenu = withStyles({
    button: {
       width: '220px',
       justifyContent: 'center',
-      color: '#3E9B4C'
+      color: '#3E9B4C',
    }
 })((props) => (
-    <Menu
-        elevation={0}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-           vertical: 'bottom',
-           horizontal: 'center',
-        }}
-        transformOrigin={{
-           vertical: 'top',
-           horizontal: 'center',
-        }}
-        {...props}
-    />
+   <Menu
+      elevation={0}
+      getContentAnchorEl={null}
+      anchorOrigin={{
+         vertical: 'bottom',
+         horizontal: 'center',
+      }}
+      transformOrigin={{
+         vertical: 'top',
+         horizontal: 'center',
+      }}
+      {...props}
+   />
 ));
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus(props) {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const store = React.useContext(Store);
    const {dispatch} = React.useContext(Store);
@@ -72,11 +73,11 @@ export default function CustomizedMenus() {
       setAnchorEl(null);
    };
    const cart = sortBy(uniqBy(store.state.addToCart, "id"), 'id', 'asc');
-   
+
    function handleDelete(e) {
       return dispatch({type: 'DELETE', payload: e});
    }
-   
+
    // const amount = store.state.addToCart.reduce((count, book) => count + (book.id === store.state.id ? 1 : 0), 0);
    /* Amount function
    const amount = store.state.addToCart;
@@ -90,57 +91,61 @@ export default function CustomizedMenus() {
    };
    */
    return (
-       <div>
-          <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleClick}>
-             <StyledBadge badgeContent={store.state.addToCart.length} color="primary">
-                <ShoppingCartOutlinedIcon/>
-             </StyledBadge>
-          </IconButton>
-          {cart.length !== 0 ?
-              <StyledMenu
-                  id="customized-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-              >
-                 {cart.map((e, i) =>
-                     <MenuItem disableTouchRipple={true} key={i}>
-                        <ListItemIcon>
-                           <img src={Tshirt} alt="t-shirt"/>
-                        </ListItemIcon>
-                        <div>{e.name}</div>
-                        <div className="price"> - {e.price}$</div>
-                        <div className="btn-delete">
-                           <Button onClick={() => handleDelete(e)}><img src={DeleteIcon} style={{width: '35px'}}
-                                                                             alt="delete"/></Button>
-                        </div>
-                     </MenuItem>
-                 )}
-                 <Button
-                     color="default"
-                     className={classes.button}
-                     startIcon={<img src={approve} alt="approve" width={25}/>}
-                 >
-                    Approve
-                 </Button>
-              </StyledMenu>
-              :
-              <Menu
-                  id="customized-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-              >
-                 <MenuItem disableTouchRipple={true}>
-                    <div>Your cart is empty</div>
-                    <ListItemIcon style={{marginLeft: '25px'}}>
-                       <img src={dribble} alt="empty" width={80}/>
-                    </ListItemIcon>
-                 </MenuItem>
-              </Menu>
-          }
-       </div>
+      <div>
+         <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleClick}>
+            <StyledBadge badgeContent={store.state.addToCart.length} color="primary">
+               <ShoppingCartOutlinedIcon/>
+            </StyledBadge>
+         </IconButton>
+         {cart.length !== 0 ?
+            <StyledMenu
+               id="customized-menu"
+               anchorEl={anchorEl}
+               keepMounted
+               open={Boolean(anchorEl)}
+               onClose={handleClose}
+            >
+               {cart.map((e, i) =>
+                  <MenuItem disableTouchRipple={true} key={i}>
+                     <ListItemIcon>
+                        <img src={Tshirt} alt="t-shirt"/>
+                     </ListItemIcon>
+                     <div>{e.name}</div>
+                     <div className="price"> - {e.price}$</div>
+                     <div className="btn-delete">
+                        <Button onClick={() => handleDelete(e)}><img src={DeleteIcon} style={{width: '35px'}}
+                                                                     alt="delete"/></Button>
+                     </div>
+                  </MenuItem>
+               )}
+               {props.location.pathname === "/dashboard" ?
+                  <Link to="/cashdesk" style={{textDecoration: 'none'}}>
+                     <Button
+                        color="default"
+                        className={classes.button}
+                        startIcon={<img src={approve} alt="approve" width={25}/>}
+                     >
+                        Approve
+                     </Button>
+                  </Link>
+                  : null}
+            </StyledMenu>
+            :
+            <Menu
+               id="customized-menu"
+               anchorEl={anchorEl}
+               keepMounted
+               open={Boolean(anchorEl)}
+               onClose={handleClose}
+            >
+               <MenuItem disableTouchRipple={true}>
+                  <div>Your cart is empty</div>
+                  <ListItemIcon style={{marginLeft: '25px'}}>
+                     <img src={dribble} alt="empty" width={80}/>
+                  </ListItemIcon>
+               </MenuItem>
+            </Menu>
+         }
+      </div>
    );
 }
