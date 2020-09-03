@@ -16,8 +16,10 @@ const initialState = {
 };
 
 export function StoreProvider(props) {
-   const [state, dispatch] = React.useReducer(logger(reducer), initialState);
-
+   const [state, dispatch] = React.useReducer(reducer, initialState);
+   if(state.addToCart.length !== 0){
+      localStorage.setItem('zakazi', JSON.stringify(state.addToCart))
+   }
    const value = {state: state, dispatch: dispatch};
    return <Store.Provider value={value}>{props.children}</Store.Provider>;
 }

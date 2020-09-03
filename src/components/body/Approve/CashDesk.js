@@ -49,7 +49,7 @@ export default function FullWidthGrid(props) {
       alert(JSON.stringify(form));
       swal("Success", "Your application has been sent", "success");
    }
-   console.log(localStorage.getItem('zakazi'))
+
    return (
       <Wrapper>
          <div className={classes.root}>

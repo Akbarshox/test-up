@@ -66,12 +66,15 @@ export default function CustomizedMenus(props) {
    const store = React.useContext(Store);
    const {dispatch} = React.useContext(Store);
    const classes = useStyles();
+   const data = JSON.parse(localStorage.getItem('zakazi'));
+
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
    };
    const handleClose = () => {
       setAnchorEl(null);
    };
+
    const cart = sortBy(uniqBy(store.state.addToCart, "id"), 'id', 'asc');
 
    function handleDelete(e) {

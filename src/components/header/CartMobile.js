@@ -56,7 +56,7 @@ export default function CartMobile(props) {
    const store = React.useContext(Store);
    const {dispatch} = React.useContext(Store);
    const cart = sortBy(uniqBy(store.state.addToCart, "id"), 'id', 'asc');
-   localStorage.setItem('zakazi', JSON.stringify(cart))
+
    const classes = useStyles();
    const [state, setState] = React.useState({
       bottom: false
@@ -95,7 +95,7 @@ export default function CartMobile(props) {
                   ))}
                   <Divider light/>
                   {props.location.pathname === '/dashboard' ?
-                     <Link to="/cashdesk">
+                     <Link to="/cashdesk" style={{textDecoration: 'none', color: '#fff'}}>
                         <Button
                            color="default"
                            className={classes.button}
