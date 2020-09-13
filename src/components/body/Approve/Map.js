@@ -3,14 +3,27 @@ import {YMaps, Map, GeolocationControl} from "react-yandex-maps";
 
 export default function Maps(props) {
 
+   function handleClick(map) {
+      if(map){
+         console.log(map)
+         map.events.add('locationchange', function (event) {
+            let position = event.get('geoObjects').get(0).properties.getAll();
+            let coordinates = event.get('position')
+            console.log(position, coordinates)
+            props.location(position)
+         });
+      }
+   }
+
    const getGeoLocation = (ymaps) => {
+      console.log(ymaps)
       ymaps.geolocation.get({
          provider: 'browser',
          autoReverseGeocode: true,
          useMapMargin: true
       }).then(function (result) {
          // Выведем результат геокодирования.
-         props.location(result.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData)
+         // props.location(result.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData)
       });
    };
 
@@ -27,8 +40,9 @@ export default function Maps(props) {
                height={320}
                modules={["geolocation", "geocode"]}
             >
-               <GeolocationControl options={{float: 'right'}} onLoad={(ymaps) => getGeoLocation(ymaps)}
-                                   press={e => console.log("123")}
+               <GeolocationControl options={{float: 'right'}}
+                                   onLoad={(ymaps) => getGeoLocation(ymaps)}
+                                   instanceRef={(map) => handleClick(map)}
                />
             </Map>
          </YMaps>

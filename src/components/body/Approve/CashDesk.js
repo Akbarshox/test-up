@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FullWidthGrid(props) {
    const classes = useStyles();
-   const [adr, setAdr] = useState();
 
    const [form, setForm] = useState(
       {
@@ -41,13 +40,18 @@ export default function FullWidthGrid(props) {
       }
    );
    const handleInputChange = (e) => {
-      e.persist()
+      e.persist();
       setForm(form => ({...form, [e.target.name]: e.target.value}))
    }
    const handleSubmit = e => {
       e.preventDefault();
       alert(JSON.stringify(form));
       swal("Success", "Your application has been sent", "success");
+   }
+
+   const handleLocation = location => {
+   // setAdr(location.text);
+      setForm(form => ({...form, ["address"]: location.text}))
    }
 
    return (
@@ -81,7 +85,7 @@ export default function FullWidthGrid(props) {
                               <TextField
                                  className={classes.textarea}
                                  name="address"
-                                 value={adr === undefined ? '' : adr.text}
+                                 value={form.address}
                                  onChange={handleInputChange}
                                  fullWidth={true}
                                  label="Address"
@@ -104,7 +108,7 @@ export default function FullWidthGrid(props) {
                </Grid>
                <Grid item xs={12} sm={6}>
                   <Paper>
-                     <Maps location={setAdr}/>
+                     <Maps location={handleLocation}/>
                   </Paper>
                </Grid>
             </Grid>
