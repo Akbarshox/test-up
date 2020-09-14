@@ -100,7 +100,7 @@ export default function CartMobile(props) {
                            color="default"
                            className={classes.button}
                            startIcon={<img src={approve} alt="approve" width={25}/>}
-                           // onClick={handleClick.bind(this, e)}
+                           onClick={props.close}
                         >
                            Approve
                         </Button>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,9 @@ import Wrapper from "../../Wrapper/Wrapper";
 import InputMask from "./InputMask";
 import Maps from './Map';
 import style from '../body.module.css';
+import {Store} from '../../../Store';
+import {Redirect} from "react-router-dom";
+import Snackbar from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FullWidthGrid(props) {
    const classes = useStyles();
-
+   const {state} = useContext(Store);
    const [form, setForm] = useState(
       {
          "name": '',
@@ -50,69 +53,72 @@ export default function FullWidthGrid(props) {
    }
 
    const handleLocation = location => {
-   // setAdr(location.text);
+      // setAdr(location.text);
       setForm(form => ({...form, ["address"]: location.text}))
    }
-
-   return (
-      <Wrapper>
-         <div className={classes.root}>
-            <Grid container spacing={4}>
-               <Grid item xs={12} sm={6}>
-                  <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                     <Paper className={classes.paper}>
-                        <Grid container spacing={2}>
-                           <Grid item xs={12} sm={12}>
-                              <TextField
-                                 className={classes.textarea}
-                                 name="name"
-                                 value={form.name}
-                                 onChange={handleInputChange}
-                                 fullWidth={true}
-                                 label="Full Name"
-                                 required={true}
-                              />
+   if (state.addToCart.length === 0) {
+      return <Redirect to="/dashboard"/>
+   } else {
+      return (
+         <Wrapper>
+            <div className={classes.root}>
+               <Grid container spacing={4}>
+                  <Grid item xs={12} sm={6}>
+                     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                        <Paper className={classes.paper}>
+                           <Grid container spacing={2}>
+                              <Grid item xs={12} sm={12}>
+                                 <TextField
+                                    className={classes.textarea}
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleInputChange}
+                                    fullWidth={true}
+                                    label="Full Name"
+                                    required={true}
+                                 />
+                              </Grid>
+                              <Grid item xs={12} sm={12}>
+                                 <InputMask
+                                    className={classes.textarea}
+                                    name="phone"
+                                    value={form.phone}
+                                    onchange={handleInputChange}
+                                 />
+                              </Grid>
+                              <Grid item xs={12} sm={12}>
+                                 <TextField
+                                    className={classes.textarea}
+                                    name="address"
+                                    value={form.address}
+                                    onChange={handleInputChange}
+                                    fullWidth={true}
+                                    label="Address"
+                                 />
+                              </Grid>
+                              <Grid item xs={12} sm={12}>
+                                 <TextField
+                                    className={classes.textarea}
+                                    name="comment"
+                                    value={form.comment}
+                                    onChange={handleInputChange}
+                                    fullWidth={true}
+                                    label="Comment"
+                                 />
+                              </Grid>
                            </Grid>
-                           <Grid item xs={12} sm={12}>
-                              <InputMask
-                                 className={classes.textarea}
-                                 name="phone"
-                                 value={form.phone}
-                                 onchange={handleInputChange}
-                              />
-                           </Grid>
-                           <Grid item xs={12} sm={12}>
-                              <TextField
-                                 className={classes.textarea}
-                                 name="address"
-                                 value={form.address}
-                                 onChange={handleInputChange}
-                                 fullWidth={true}
-                                 label="Address"
-                              />
-                           </Grid>
-                           <Grid item xs={12} sm={12}>
-                              <TextField
-                                 className={classes.textarea}
-                                 name="comment"
-                                 value={form.comment}
-                                 onChange={handleInputChange}
-                                 fullWidth={true}
-                                 label="Comment"
-                              />
-                           </Grid>
-                        </Grid>
+                        </Paper>
+                        <button type="sumbit" className={style.submit}>submit</button>
+                     </form>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                     <Paper>
+                        <Maps location={handleLocation}/>
                      </Paper>
-                     <button type="sumbit" className={style.submit}>submit</button>
-                  </form>
+                  </Grid>
                </Grid>
-               <Grid item xs={12} sm={6}>
-                  <Paper>
-                     <Maps location={handleLocation}/>
-                  </Paper>
-               </Grid>
-            </Grid>
-         </div>
-      </Wrapper>
-   );
+            </div>
+         </Wrapper>
+      )
+   }
 }

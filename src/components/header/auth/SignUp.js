@@ -209,7 +209,6 @@ export default function SimpleDialogDemo() {
    const handleClose = () => {
       setOpen(false);
       auth.setError(null);
-      history.push('/');
    };
    
    return (

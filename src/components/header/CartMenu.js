@@ -74,7 +74,6 @@ export default function CustomizedMenus(props) {
    const handleClose = () => {
       setAnchorEl(null);
    };
-
    const cart = sortBy(uniqBy(store.state.addToCart, "id"), 'id', 'asc');
 
    function handleDelete(e) {
@@ -127,6 +126,7 @@ export default function CustomizedMenus(props) {
                         color="default"
                         className={classes.button}
                         startIcon={<img src={approve} alt="approve" width={25}/>}
+                        onClick={handleClose}
                      >
                         Approve
                      </Button>

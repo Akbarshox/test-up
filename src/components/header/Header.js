@@ -111,6 +111,7 @@ export default function Header(props) {
       setSearchItem(event.target.value);
       return dispatch({type: 'SEARCH', payload: event.target.value})
    };
+   
    const mobileMenuId = 'primary-search-account-menu-mobile';
    const renderMobileMenu = (
       <Menu
@@ -128,7 +129,7 @@ export default function Header(props) {
             </IconButton>
             <p>Favourite</p>
          </MenuItem>
-         <CartMobile {...props} />
+         <CartMobile close={handleMobileMenuClose} {...props} />
       </Menu>
    );
    return (
