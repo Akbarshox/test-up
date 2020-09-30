@@ -59,6 +59,7 @@
     display: inline-block;
     margin-left: -20px;
 }
+
 .carousel img {
     height: 520px;
 }
@@ -72,10 +73,17 @@
     margin: 15px 0;
     outline: none;
 }
-.submit:hover{
+
+.submit:hover {
     background-color: #ffc600;
     color: #000;
     outline: none;
+}
+
+@media (max-width: 1000px) {
+    .carousel {
+        display: none;
+    }
 }
 
 @media (max-width: 600px) {

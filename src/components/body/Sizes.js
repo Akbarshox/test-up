@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0.5)
    },
    rootMobile: {
-      display: 'inline',
+      display: 'inline-block',
    },
    circleMobile: {
       backgroundColor: "#BBBBBB",
